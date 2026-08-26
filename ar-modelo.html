@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Modelo 3D — Tocar Base</title>
+<meta name="theme-color" content="#0a0a0a">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="page-screen">
+
+<main>
+  <!-- Pantalla del modelo 3D — "lienzo en blanco" a propósito.
+       Todo lo que necesita AR real queda sin programar. -->
+  <div class="app-screen-top">
+    <a href="ar-escaner.html" class="circle-btn" id="model3dBack" aria-label="Regresar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </a>
+  </div>
+
+  <div class="camera-canvas">
+    <p class="canvas-placeholder-text">Aquí se mostrará el modelo 3D en Realidad Aumentada<br><small>(pendiente de programar)</small></p>
+  </div>
+
+  <div class="ar-toolbar">
+    <button class="ar-icon-btn" aria-label="Animación / pose" disabled>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="4" r="2"/><path d="M12 6v6l-4 8M12 12l4 8M8 10l-4 2M16 10l4 2"/></svg>
+    </button>
+    <button class="ar-icon-btn" aria-label="Rotar" disabled>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 1 1 3 6.3"/><path d="M4 18v-5h5"/></svg>
+    </button>
+    <button class="ar-icon-btn" aria-label="Sonido / animación" disabled>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 15l6-10 6 10z"/><path d="M15 15l3-5 3 5" stroke-linecap="round"/></svg>
+    </button>
+    <button class="ar-icon-btn" aria-label="Tomar foto" disabled>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l2-2h4l2 2"/></svg>
+    </button>
+  </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trivia — Tocar Base</title>
+<meta name="theme-color" content="#0a0a0a">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="page-screen">
+
+<main>
+  <div class="app-screen-top">
+    <button class="circle-btn" id="triviaBack" aria-label="Salir">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <h2 class="app-screen-title">Trivia</h2>
+    <button class="circle-btn" id="triviaInfo" aria-label="Ver instrucciones">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <div class="trivia-content">
+    <div class="trivia-question-counter" id="triviaCounter"></div>
+    <p class="trivia-question" id="triviaQuestion"></p>
+
+    <div class="trivia-answers">
+      <button class="trivia-answer-btn" id="triviaTrue" data-value="true">Verdadero</button>
+      <button class="trivia-answer-btn" id="triviaFalse" data-value="false">Falso</button>
+    </div>
+
+    <p class="trivia-feedback" id="triviaFeedback"></p>
+
+    <div class="trivia-next-wrap">
+      <button class="btn-solid" id="triviaNext" hidden>Siguiente pregunta</button>
+    </div>
+  </div>
+</main>
+
+<!-- Modal de instrucciones de la trivia -->
+<div class="instructions-modal" id="triviaInstructionsModal">
+  <div class="instructions-card">
+    <p>Te haremos una serie de preguntas sobre los equipos, los estadios y la historia de la liga.</p>
+    <p>Cada pregunta se responde con Verdadero o Falso. ¡Trata de acertar todas!</p>
+
+    <button class="btn-solid btn-block" id="triviaInstructionsOk">OK</button>
+  </div>
+</div>
+
+<!-- Modal de confirmación al salir de la trivia -->
+<div class="confirm-modal" id="exitConfirmModal">
+  <div class="confirm-card">
+    <h3>¿Confirmas que quieres salir?</h3>
+    <p>Su progreso no se guardará</p>
+    <div class="confirm-actions">
+      <button class="btn-ghost" id="exitConfirmYes">Sí</button>
+      <button class="btn-solid" id="exitConfirmNo">No</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/trivia-jugar.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Detalle — Tocar Base</title>
+<meta name="description" content="Detalle de equipo o estadio de la Liga Mexicana de Béisbol.">
+<meta name="theme-color" content="#0a0a0a">
+
+<!-- Tipografías -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Bootstrap 5 (solo por si se usan utilidades; no hay JS de Bootstrap en esta página) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="page-detalle">
+
+<main>
+
+  <!-- ============ BARRA SUPERIOR ============ -->
+  <div class="detail-top">
+    <a href="index.html" class="circle-btn btn-close-detail" aria-label="Volver al inicio">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </a>
+    <div class="detail-nav">
+      <button class="circle-btn btn-prev-detail" aria-label="Anterior">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="circle-btn btn-next-detail" aria-label="Siguiente">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ CONTENIDO (se llena dinámicamente con js/detalle.js) ============ -->
+  <div class="detail-hero">
+    <div class="diamond-pattern"></div>
+    <div class="titles">
+      <div class="shield-lg"></div>
+      <h2 class="detail-name"></h2>
+      <div class="detail-sub sub"></div>
+    </div>
+  </div>
+
+  <div class="detail-body">
+    <p class="lead-text"></p>
+    <p class="lead-text lead-text-2"></p>
+
+    <div class="stat-pills"></div>
+
+    <!-- Se llena distinto según el tipo: "Estadísticas" para equipos,
+         "Fotos" para estadios (ver js/detalle.js) -->
+    <div class="detail-extra"></div>
+  </div>
+
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/detalle.js"></script>
+</body>
+</html>
