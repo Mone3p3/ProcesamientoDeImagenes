@@ -299,7 +299,16 @@ a{ color: inherit; text-decoration: none; }
   font-size: 1.5rem;
   color: #fff;
   border: 2px solid rgba(255,255,255,.5);
-  object-fit:scale-down;
+  overflow: hidden;
+  padding:5px;
+  box-sizing: border-box;
+}
+
+.team-shield img{
+
+  width: 100%;
+  height: auto;
+
 }
 .team-card .name{
   font-family: var(--font-display);
@@ -339,6 +348,15 @@ a{ color: inherit; text-decoration: none; }
   font-size: .75rem;
   color: #fff;
   background: rgba(0,0,0,.25);
+}
+
+.photo img {
+
+  max-width: 100%;
+  height: auto;
+  position:absolute;
+  opacity: 50%;
+
 }
 .stadium-card .info{ padding: 12px 14px 0; position:relative; top:60%; height: 100%;}
 
@@ -667,7 +685,18 @@ a{ color: inherit; text-decoration: none; }
   background: linear-gradient(135deg, #232323, #0a0a0a 75%);
   background-size: cover;
   background-position: center;
+  overflow: hidden;
+
+ 
 }
+
+.about-photo img{
+
+  max-width: 160%;
+  height: auto;
+
+}
+
 .about-text{ padding-inline: 18px; }
 .about-text h2{ font-size: 1.3rem; margin-bottom: 10px; }
 .about-text p{ color: #d8d6cf; font-size: .92rem; line-height: 1.65; }
@@ -776,6 +805,16 @@ a{ color: inherit; text-decoration: none; }
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: linear-gradient(150deg, #241a1a, #0a0a0a 75%);
+  overflow: hidden;
+}
+
+.ar-photo img{
+
+  max-width: 100%;
+  height: auto;
+  position: relative;
+  bottom: 40px;
+
 }
 .ar-copy{ padding: 16px 18px 0; }
 .ar-copy h3{ font-size: 1.05rem; margin-bottom: 8px; }
@@ -948,6 +987,15 @@ body.page-screen main{
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: linear-gradient(150deg, #241a1a, #0a0a0a 75%);
+  overflow: hidden;
+}
+.game-photo img{
+
+  max-width: 100%;
+  height: 120%;
+  position: relative;
+  bottom: 10px;
+
 }
 .game-intro-content{ padding: 60px 24px 0; text-align: center; }
 .game-title{ font-size: 3rem; margin-bottom: 18px; }
@@ -1056,6 +1104,14 @@ body.page-screen main{
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: linear-gradient(150deg, #241a1a, #0a0a0a 75%);
+  overflow: hidden;
+}
+
+.trivia-photo img{
+
+  max-width: 100%;
+  height: 110%;
+
 }
 
 .trivia-content{

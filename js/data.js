@@ -1,21 +1,3 @@
-/* =========================================================================
-   data.js — Datos de ejemplo (mock data)
-   -------------------------------------------------------------------------
-   Cuando conectes la base de datos MySQL, sustituye estos arreglos por
-   llamadas fetch() a tu API, por ejemplo:
-
-     let TEAMS = [];
-     fetch('/api/equipos.php').then(r => r.json()).then(data => {
-       TEAMS = data;
-       renderTeams();
-     });
-
-   Se mantuvieron los mismos nombres de campo que usarías como columnas
-   de tabla (id, nombre, ciudad, descripcion, color, fundacion, escudo_url)
-   para que el mapeo futuro sea directo. El objeto "estadisticas" de cada
-   equipo se puede mapear a una tabla aparte (ej. "equipo_estadisticas")
-   relacionada por equipo_id.
-   ========================================================================= */
 
 const TEAMS = [
   {

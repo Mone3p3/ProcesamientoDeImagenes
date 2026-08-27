@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     el.setAttribute("tabindex", "0");
     el.innerHTML = `
       <div class="team-shield">
-        
+        <img src="../Images/Sultanes_3.png" alt="Escudos">
       </div>
       <div class="name">${team.nombre}</div>
       <div class="city">${team.apodo}</div>
@@ -68,7 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
     el.setAttribute("tabindex", "0");
     el.innerHTML = `
      
-      <div class="photo" style="background:linear-gradient(160deg, ${st.color}, #0a0a0a)">
+      <div class="photo">
+        <img src="../Images/Walmart_Park.jpg" alt="Estadios">
         <div class="info">
           <div class="name">${st.nombre}</div>
           <div class="city">${st.ciudad}</div>
