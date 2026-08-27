@@ -19,14 +19,10 @@
 </head>
 <body>
 
-<!-- ============ HEADER ============ -->
+<!--- HEADER ------------------------------------------------------>
+
 <header class="site-header" id="siteHeader">
   <a href="#inicio" class="brand" aria-label="Tocar Base — Inicio">
-    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="24" cy="24" r="21" fill="#fff"/>
-      <path d="M24 3c-4 6-4 12 0 18M24 45c4-6 4-12 0-18" stroke="#c8102e" stroke-width="1.6" fill="none"/>
-      <path d="M8 12c5 4 7 8 7 12s-2 8-7 12M40 12c-5 4-7 8-7 12s2 8 7 12" stroke="#c8102e" stroke-width="1.6" fill="none"/>
-    </svg>
     Tocar Base
   </a>
   <button class="btn-burger" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuPanel" aria-controls="menuPanel" aria-label="Abrir menú">
@@ -34,7 +30,8 @@
   </button>
 </header>
 
-<!-- ============ MENÚ (offcanvas) ============ -->
+<!--- MENÚ -------------------------------------------------------->
+
 <div class="offcanvas offcanvas-end menu-panel" tabindex="-1" id="menuPanel" aria-labelledby="menuPanelLabel">
   <div class="offcanvas-header">
     <h2 class="offcanvas-title" id="menuPanelLabel">Menú</h2>
@@ -43,6 +40,7 @@
   <div class="offcanvas-body">
     <a href="#inicio" class="nav-pill is-active" data-section="inicio">Inicio</a>
     <a href="#equipos" class="nav-pill" data-section="equipos">Equipos</a>
+    <a href="#historia" class="nav-pill" data-section="historia">Historia</a>    
     <a href="#estadios" class="nav-pill" data-section="estadios">Estadios</a>
     <a href="#ar" class="nav-pill" data-section="ar">Realidad Aumentada</a>
     <a href="#trivia" class="nav-pill" data-section="trivia">Trivia</a>
@@ -54,29 +52,23 @@
 
 <main>
 
-  <!-- ============ INICIO ============ -->
+  <!--- INICIO ------------------------------------------->
   <section id="inicio" aria-label="Inicio">
     <div class="hero">
       <div class="hero bg-black">
         <div class="position-relative overflow-hidden w-100">
-          <img class="hero-img" src="/Images/Inicio.webp" alt="Imagen 1" class="d-block">
+          <img class="hero-img" src="/Images/Inicio.webp" alt="Inicio Imagen" class="d-block">
         </div>
-        <div class="mask position-absolute bottom-0 start-0 w-100"></div>
       </div>
 
       <div class="hero-content">
-        <svg class="hero-logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="24" cy="24" r="21" fill="#fff"/>
-          <path d="M24 3c-4 6-4 12 0 18M24 45c4-6 4-12 0-18" stroke="#c8102e" stroke-width="1.6" fill="none"/>
-          <path d="M8 12c5 4 7 8 7 12s-2 8-7 12M40 12c-5 4-7 8-7 12s2 8 7 12" stroke="#c8102e" stroke-width="1.6" fill="none"/>
-        </svg>
         <h1>Liga Mexicana de Béisbol</h1>
         <p>Descubre a los equipos, los estadios y la historia detrás del béisbol profesional mexicano, todo en un mismo lugar.</p>
       </div>
     </div>
   </section>
 
-  <!-- ============ EQUIPOS ============ -->
+  <!--- EQUIPOS ---------------------------------------------------------------------->
   <section id="equipos" class="section" aria-label="Equipos">
     <div class="section-head">
       <h2>Equipos</h2>
@@ -85,28 +77,32 @@
     <p class="section-sub">Toca un escudo para conocer más sobre cada equipo.</p>
 
     <div class="card-rail-wrap">
-      <button class="rail-btn prev" data-rail="teamRail" data-dir="prev" aria-label="Anterior">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
+      
       <div class="card-rail" id="teamRail"></div>
-      <button class="rail-btn next" data-rail="teamRail" data-dir="next" aria-label="Siguiente">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
-      </button>
+      
     </div>
   </section>
+  
 
-  <!-- ============ HISTORIA (bloque "acerca de") ============ -->
-  <section class="section" aria-label="Historia de la liga">
+  <!--- HISTORIA ------------------------------------------------------------------------->
+  <section id="historia" class="section" aria-label="Historia de la liga">
 
+    <div class="section-head">      
+      <div class="rule"></div>
+    </div>
     <div class="about-photo"></div>
     <div class="about-text">
       <h2>Liga Mexicana de Béisbol</h2>
 
-      <p>Escribe aquí un texto más largo sobre la historia de la Liga Mexicana de Béisbol: cuándo se fundó, cómo ha evolucionado y qué la hace especial. Este es un párrafo de ejemplo, listo para reemplazar.</p>
+      <p>Liga mexicana de béisbol</p>
+      <p>Espacio</p>
+      <p>Espacio</p>
+      <p>Mas espacio</p>
+      
     </div>
   </section>
 
-  <!-- ============ ESTADIOS ============ -->
+  <!--- ESTADIOS ------------------------------------------------------------------------------->
   <section id="estadios" class="section" aria-label="Estadios">
     <div class="section-head">
       <h2>Estadios</h2>
@@ -115,72 +111,70 @@
     <p class="section-sub">Explora las casas de cada equipo de la liga.</p>
 
     <div class="card-rail-wrap">
-      <button class="rail-btn prev" data-rail="stadiumRail" data-dir="prev" aria-label="Anterior">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
+     
       <div class="card-rail" id="stadiumRail"></div>
-      <button class="rail-btn next" data-rail="stadiumRail" data-dir="next" aria-label="Siguiente">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
-      </button>
+ 
     </div>
   </section>
 
-  <!-- ============ REALIDAD AUMENTADA ============
-       Todo lo que necesita cámara (escáner de escudo y modelo 3D) queda
-       como "lienzo en blanco": aquí solo están los botones, las pantallas
-       y las instrucciones. La programación de la cámara/AR se agrega después. -->
+  <!--- REALIDAD AUMENTADA -------------------------------------------------------------------------->
+
   <section id="ar" class="section" aria-label="Realidad Aumentada">
-    <div class="section-head reverse">
+    <div class="section-head">
       <div class="rule"></div>
       <h2>Realidad Aumentada</h2>
     </div>
-
-    <div class="ar-photo col-7"></div>
 
     <div class="ar-copy">
       <h3>¡Escanea!</h3>
       <p>Escanea el escudo e interactúa con la mascota del equipo. ¡Explora las demás funciones que hay dentro!</p>
     </div>
 
+    <div class="ar-photo col-7"></div>
+
+
     <div class="ar-cta">
       <button class="btn-solid" id="btnEscanear">Escanear</button>
     </div>
   </section>
 
-  <!-- ============ TRIVIA ============ -->
+
+  
+  <!--- TRIVIA ------------------------------------------------------------------------------------->
+
   <section id="trivia" class="section" aria-label="Trivia">
     <div class="section-head">
       <h2>Trivia</h2>
       <div class="rule"></div>
     </div>
 
-    <div class="ar-photo  col-7"></div>
-
-    <div class="ar-copy">
+    <div class="juego-copy">
       <h3>¿Qué tanto sabes de la LMB?</h3>
       <p>Responde preguntas de verdadero o falso sobre los equipos, los estadios y la historia de la liga.</p>
     </div>
+
+    <div class="trivia-photo  col-7"></div>
+
 
     <div class="ar-cta">
       <a href="trivia.html" class="btn-solid">Empezar</a>
     </div>
   </section>
 
-  <!-- ============ GALERÍA ============ -->
+  <!--- GALERÍA ------------------------------------------------------------------------->
   <section id="galeria" class="section" aria-label="Galería">
-    <div class="section-head">
+    <div class="section-head reverse">
       <h2>Galería</h2>
       <div class="rule"></div>
     </div>
     <p class="section-sub">Toca una foto para editarla y aplicarle un filtro.</p>
 
     <div class="gallery-grid" id="galleryGrid"></div>
+    
   </section>
 
-  <!-- ============ JUEGO ============
-       El minijuego queda pendiente a propósito: solo el botón, la pantalla
-       de inicio, el "lienzo en blanco" del área de juego y las instrucciones.
-       Sin lógica de juego (sin física, sin colisiones, sin puntaje). -->
+ 
+  <!--- JUEGO ------------------------------------------------------------------------------------------>
   <section id="juego" class="section" aria-label="Juego">
     <div class="section-head reverse">
       <div class="rule"></div>
@@ -192,6 +186,8 @@
       <p>Lanza la pelota y demuestra tu puntería. Juega para poder ganar recompensas.</p>
     </div>
 
+    <div class="game-photo  col-7"></div>
+
     <div class="juego-cta">
       <a href="juego.html" class="btn-solid" id="btnJugar">Jugar</a>
     </div>
@@ -199,22 +195,19 @@
 
 </main>
 
-<!-- ============ FOOTER ============ -->
+<!--- FOOTER ---------------------------------------------------------------------------------------------->
+
 <footer class="site-footer">
   <div class="brand">
-    <svg viewBox="0 0 48 48" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="24" cy="24" r="21" fill="#fff"/>
-      <path d="M24 3c-4 6-4 12 0 18M24 45c4-6 4-12 0-18" stroke="#c8102e" stroke-width="1.6" fill="none"/>
-      <path d="M8 12c5 4 7 8 7 12s-2 8-7 12M40 12c-5 4-7 8-7 12s2 8 7 12" stroke="#c8102e" stroke-width="1.6" fill="none"/>
-    </svg>
     Tocar Base
   </div>
   <p>Tocar Base es un proyecto escolar que brinda información acerca de la Liga Mexicana de Béisbol. Queremos que su experiencia sea lo más cómoda posible; cualquier comentario que nos ayude a mejorar la página es más que bienvenido.</p>
-  <p><a href="mailto:tocarbase_help@gmail.com" style="color:var(--text-muted)">tocarbase_help@gmail.com</a></p>
-  <p>&copy; <span id="year"></span> Tocar Base.</p>
+  <p>tocarbase_help@gmail.com</p>
+  <p>2026 Tocar Base.</p>
 </footer>
 
-<!-- ============ EDITOR DE FOTOS (GALERÍA) ============ -->
+<!--- GALERÍA ------------------------------------------------------------------------------------------>
+
 <div class="editor-overlay" id="editorOverlay">
   <div class="editor-card">
     <div class="editor-head">
@@ -229,51 +222,25 @@
     </div>
 
     <div class="filter-row">
-      <button class="chip is-active" data-filter="none">Original</button>
-      <button class="chip" data-filter="bn">Blanco y negro</button>
-      <button class="chip" data-filter="sepia">Sepia</button>
-      <button class="chip" data-filter="vintage">Vintage</button>
-      <button class="chip" data-filter="contraste">Alto contraste</button>
+      <button class="chip" data-filter="none">Original</button>
+      <button class="chip" data-filter="bn">Desenfoque</button>
+      <button class="chip" data-filter="sepia">Pixelado</button>
+      <button class="chip" data-filter="vintage">Térmica</button>
     </div>
 
     <div class="editor-slider">
-      <label for="brightnessRange">Brillo</label>
+      <label for="brightnessRange">Saturación</label>
       <input type="range" class="form-range" id="brightnessRange" min="60" max="140" value="100">
     </div>
 
     <div class="editor-actions">
       <button class="btn-ghost" id="cancelEditor">Cancelar</button>
-      <button class="btn-solid" id="downloadEditor">Descargar</button>
+      <button class="btn-solid" id="downloadEditor">Guardar</button>
     </div>
   </div>
 </div>
 
-<!-- =========================================================================
-     REALIDAD AUMENTADA
-     El modal de instrucciones vive aquí (se muestra antes de navegar).
-     El resto del flujo (escáner → modelo 3D) son páginas aparte:
-     ar-escaner.html y ar-modelo.html.
-     ========================================================================= -->
 
-<!-- Modal de instrucciones: cómo escanear un escudo -->
-<div class="instructions-modal" id="arInstructionsModal">
-  <div class="instructions-card">
-    <p>Apunta con la cámara a la parte trasera de una tarjeta bisontina.</p>
-    <p>Haz que el escudo quede dentro del recuadro blanco.</p>
-
-    <div class="instructions-example">
-      <div class="example-card">FRENTE</div>
-      <svg class="example-arrow" width="60" height="40" viewBox="0 0 60 40" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6c14 4 30 14 50 26" stroke-linecap="round"/><path d="M46 26l8 6-9 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div class="example-card shield-face">
-        <div class="mini-shield">TM</div>
-      </div>
-    </div>
-
-    <button class="btn-solid btn-block" id="arInstructionsOk">OK</button>
-  </div>
-</div>
-
-<!-- Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>

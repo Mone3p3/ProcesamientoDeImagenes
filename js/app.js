@@ -1,6 +1,3 @@
-/* =========================================================================
-   app.js — Interactividad de Tocar Base
-   ========================================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -49,8 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
     el.setAttribute("role", "button");
     el.setAttribute("tabindex", "0");
     el.innerHTML = `
-      <div class="team-shield" style="background:linear-gradient(145deg, ${team.color}, ${team.color2})">
-        ${initials(team.nombre)}
+      <div class="team-shield">
+        
       </div>
       <div class="name">${team.nombre}</div>
       <div class="city">${team.apodo}</div>
@@ -70,12 +67,12 @@ document.addEventListener("DOMContentLoaded", () => {
     el.setAttribute("role", "button");
     el.setAttribute("tabindex", "0");
     el.innerHTML = `
+     
       <div class="photo" style="background:linear-gradient(160deg, ${st.color}, #0a0a0a)">
-        <div class="badge-mini">${team ? initials(team.nombre) : "⚾"}</div>
-      </div>
-      <div class="info">
-        <div class="name">${st.nombre}</div>
-        <div class="city">${st.ciudad}</div>
+        <div class="info">
+          <div class="name">${st.nombre}</div>
+          <div class="city">${st.ciudad}</div>
+        </div>
       </div>
     `;
     const open = () => { window.location.href = `detalle.html?tipo=stadium&id=${encodeURIComponent(st.id)}`; };
@@ -84,14 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
     stadiumRail.appendChild(el);
   });
 
-  /* ---------- Flechas de los carruseles horizontales ---------- */
-  document.querySelectorAll("[data-rail]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const rail = document.getElementById(btn.dataset.rail);
-      const dir = btn.dataset.dir === "next" ? 1 : -1;
-      rail.scrollBy({ left: dir * 180, behavior: "smooth" });
-    });
-  });
 
   /* ---------- Galería con editor de fotos ---------- */
   const galleryGrid = document.getElementById("galleryGrid");
@@ -101,10 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tile.style.background = `linear-gradient(150deg, ${photo.color}, #0a0a0a)`;
     tile.setAttribute("role", "button");
     tile.setAttribute("tabindex", "0");
-    tile.innerHTML = `
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M4 20l5-6 4 4 4-6 3 3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="7" r="2"/></svg>
-      <span>${photo.titulo}</span>
-    `;
+   
     const open = () => openEditor(photo);
     tile.addEventListener("click", open);
     tile.addEventListener("keydown", (e) => { if (e.key === "Enter") open(); });
@@ -137,16 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 320, 320);
 
-    // Silueta simple tipo "pelota de béisbol" como marcador visual del contenido
-    ctx.beginPath();
-    ctx.arc(160, 170, 60, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255,255,255,.92)";
-    ctx.fill();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "#c8102e";
-    ctx.beginPath();
-    ctx.arc(160, 170, 60, 0.4, 2.2);
-    ctx.stroke();
 
     // Aplicar filtro re-dibujando con ctx.filter sobre el resultado
     const snapshot = ctx.getImageData(0, 0, 320, 320);
@@ -196,17 +172,10 @@ document.addEventListener("DOMContentLoaded", () => {
     link.click();
   });
 
-  /* =========================================================================
-     Utilidades genéricas para abrir/cerrar modales
-     ========================================================================= */
-  function openModal(el) { el.classList.add("is-open"); document.body.style.overflow = "hidden"; }
-  function closeModal(el) { el.classList.remove("is-open"); document.body.style.overflow = ""; }
+ 
 
-  /* =========================================================================
-     Realidad Aumentada — botón "Escanear" → instrucciones (modal, aquí en
-     Inicio) → al aceptar, se navega a la página del escáner (ar-escaner.html).
-     El resto del flujo (escáner → modelo 3D) vive en sus propias páginas.
-     ========================================================================= */
+
+  /*--- REALIDAD AUMENTADA ----------------------------------*/
   const arInstructionsModal = document.getElementById("arInstructionsModal");
 
   document.getElementById("btnEscanear").addEventListener("click", () => {

@@ -16,11 +16,10 @@
 <body class="page-screen">
 
 <main>
-  <div class="app-screen-top">
-    <a href="index.html" class="circle-btn" id="gameIntroBack" aria-label="Regresar">
+  <div class="detail-top">
+    <a href="index.html#juego" class="circle-btn" id="gameIntroBack" aria-label="Regresar">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
     </a>
-    <span></span>
     <button class="circle-btn" id="gameIntroInfo" aria-label="Ver instrucciones">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01" stroke-linecap="round"/></svg>
     </button>
@@ -36,31 +35,5 @@
   <a class="btn-solid btn-block game-start-btn" id="gameStartBtn" href="juego-jugar.html">Iniciar</a>
 </main>
 
-<!-- Modal de instrucciones del juego -->
-<div class="instructions-modal" id="gameInstructionsModal">
-  <div class="instructions-card">
-    <p>Bloquea la bola para evitar que caiga mientras rebota por la pantalla.</p>
-    <p>Cada que la bola toque un bloque de color lo destruirá. Destruye todos los bloques para ganar.</p>
-
-    <div class="game-diagram wrong">
-      <span class="diagram-mark">✕</span>
-      <div class="diagram-box">
-        <div class="diagram-paddle"></div>
-        <div class="diagram-ball" style="left:22%;"></div>
-      </div>
-    </div>
-    <div class="game-diagram right">
-      <span class="diagram-mark ok">✓</span>
-      <div class="diagram-box">
-        <div class="diagram-paddle" style="left:30%;"></div>
-        <div class="diagram-ball" style="left:62%; top:35%;"></div>
-      </div>
-    </div>
-
-    <button class="btn-solid btn-block" id="gameInstructionsOk">OK</button>
-  </div>
-</div>
-
-<script src="js/juego-intro.js"></script>
 </body>
 </html>

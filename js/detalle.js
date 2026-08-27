@@ -63,9 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     dExtra.innerHTML = `
       <div class="detail-gallery-head"><h3>Fotos</h3><div class="rule"></div></div>
-      <div class="foto-feature" style="background:linear-gradient(150deg, ${foto ? foto.color : item.color}, #0a0a0a)"></div>
-      <p class="foto-caption">${foto ? foto.caption : ""}</p>
-      <div class="foto-dots">${dots}</div>
+      <div class="foto-feature" style="background:linear-gradient(150deg, ${foto ? foto.color : item.color}, #0a0a0a)"></div>     
     `;
 
     dExtra.querySelectorAll("[data-foto-dot]").forEach(dot => {

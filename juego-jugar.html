@@ -16,16 +16,15 @@
 <body class="page-screen">
 
 <main>
-  <!-- Área de juego — "lienzo en blanco" a propósito, sin física ni
-       lógica de juego (sin colisiones, sin puntaje). -->
-  <div class="app-screen-top">
-    <button class="circle-btn" id="gameCanvasBack" aria-label="Salir">
+
+  <div class="detail-top">
+    <a class="circle-btn" id="gameCanvasBack" aria-label="Salir" href="index.html#juego">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
+    </a>
     <h2 class="app-screen-title">Base Out</h2>
-    <button class="circle-btn" id="gameCanvasInfo" aria-label="Ver instrucciones">
+    <a class="circle-btn" id="gameCanvasInfo" aria-label="Ver instrucciones">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01" stroke-linecap="round"/></svg>
-    </button>
+    </a>
   </div>
 
   <div class="game-field">
@@ -37,43 +36,5 @@
   </div>
 </main>
 
-<!-- Modal de instrucciones del juego -->
-<div class="instructions-modal" id="gameInstructionsModal">
-  <div class="instructions-card">
-    <p>Bloquea la bola para evitar que caiga mientras rebota por la pantalla.</p>
-    <p>Cada que la bola toque un bloque de color lo destruirá. Destruye todos los bloques para ganar.</p>
-
-    <div class="game-diagram wrong">
-      <span class="diagram-mark">✕</span>
-      <div class="diagram-box">
-        <div class="diagram-paddle"></div>
-        <div class="diagram-ball" style="left:22%;"></div>
-      </div>
-    </div>
-    <div class="game-diagram right">
-      <span class="diagram-mark ok">✓</span>
-      <div class="diagram-box">
-        <div class="diagram-paddle" style="left:30%;"></div>
-        <div class="diagram-ball" style="left:62%; top:35%;"></div>
-      </div>
-    </div>
-
-    <button class="btn-solid btn-block" id="gameInstructionsOk">OK</button>
-  </div>
-</div>
-
-<!-- Modal de confirmación al salir del juego -->
-<div class="confirm-modal" id="exitConfirmModal">
-  <div class="confirm-card">
-    <h3>¿Confirmas que quieres salir?</h3>
-    <p>Su progreso no se guardará</p>
-    <div class="confirm-actions">
-      <button class="btn-ghost" id="exitConfirmYes">Sí</button>
-      <button class="btn-solid" id="exitConfirmNo">No</button>
-    </div>
-  </div>
-</div>
-
-<script src="js/juego-jugar.js"></script>
 </body>
 </html>
