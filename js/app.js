@@ -209,8 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
      ========================================================================= */
   const arInstructionsModal = document.getElementById("arInstructionsModal");
 
-  document.getElementById("btnEscanear").addEventListener("click", () => openModal(arInstructionsModal));
-  document.getElementById("arInstructionsOk").addEventListener("click", () => {
+  document.getElementById("btnEscanear").addEventListener("click", () => {
     window.location.href = "ar-escaner.html";
   });
 
