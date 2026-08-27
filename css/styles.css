@@ -4,7 +4,7 @@
    ========================================================================= */
 
 :root{
-  --bg: #0a0a0a;
+  --bg: #000000;
   --bg-elev: #131313;
   --surface: #1a1a1a;
   --surface-2: #201f1f;
@@ -164,20 +164,10 @@ a{ color: inherit; text-decoration: none; }
   max-height: 720px;
   overflow: hidden;
 }
-.hero .carousel,
-.hero .carousel-inner,
-.hero .carousel-item{ height: 100%; }
-.hero-slide{
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-.hero-slide::after{
-  content:"";
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,.92) 10%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.55) 100%);
+.mask{
+  height:60%;
+  background:linear-gradient(to top, #000 40%, transparent 100%);
+  pointer-events:none;
 }
 .diamond-pattern{
   position: absolute; inset: 0;
@@ -224,6 +214,10 @@ a{ color: inherit; text-decoration: none; }
 .section{
   padding: 44px 0 8px;
   scroll-margin-top: var(--header-h);
+  background: radial-gradient( circle at 50% 50%,
+  rgba(130, 0, 153, 1)   0%,
+  rgba(130, 0, 153, 0.35) 0%,
+  transparent 60%);
 }
 .section-head{
   display: flex;
@@ -247,6 +241,7 @@ a{ color: inherit; text-decoration: none; }
   font-size: .9rem;
   margin: -10px 0 18px;
 }
+
 
 /* ---------- Card carousel (equipos / estadios) ---------- */
 .card-rail-wrap{ position: relative; }
