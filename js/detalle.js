@@ -1,14 +1,4 @@
-/* =========================================================================
-   detalle.js — Página de detalle de equipo o estadio
-   -------------------------------------------------------------------------
-   Esta página se abre con una URL del tipo:
-     detalle.html?tipo=team&id=sultanes
-     detalle.html?tipo=stadium&id=estadio-monterrey
 
-   Lee esos dos parámetros, busca el elemento correspondiente en data.js
-   y llena el contenido. Los botones "anterior" / "siguiente" navegan
-   dentro de la misma lista (equipos o estadios) actualizando la URL.
-   ========================================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -39,8 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentIndex = 0;
   let fotoIndex = 0;
 
-  // Genera una mini gráfica de líneas (sparkline) en SVG a partir de una
-  // lista de 0s y 1s (derrota/victoria) — sin ninguna librería externa.
+  
   function sparklineSVG(valores) {
     const w = 90, h = 30, pad = 3;
     const step = (w - pad * 2) / (valores.length - 1);
@@ -122,9 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const item = list[idx];
 
     if (type === "team") {
-      dTop.style.background = `linear-gradient(160deg, ${item.color}, #0a0a0a 80%)`;
-      dShield.textContent = initials(item.nombre);
-      dShield.style.background = `linear-gradient(145deg, ${item.color}, ${item.color2})`;
       dTitle.textContent = `${item.nombre} ${item.apodo}`;
       dSub.textContent = item.ciudad;
       dText.textContent = item.descripcion;
@@ -138,8 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       const team = teamById(item.equipoId);
       dTop.style.background = `linear-gradient(160deg, ${item.color}, #0a0a0a 80%)`;
-      dShield.textContent = team ? initials(team.nombre) : "⚾";
-      dShield.style.background = `linear-gradient(145deg, ${item.color}, #1a1a1a)`;
       dTitle.textContent = item.nombre;
       dSub.textContent = `Casa de ${team ? team.nombre : ""} — ${item.ciudad}`;
       dText.textContent = item.descripcion;
@@ -169,14 +153,8 @@ document.addEventListener("DOMContentLoaded", () => {
     goTo(currentType, list[next].id);
   }
 
-  document.querySelector(".btn-prev-detail").addEventListener("click", () => stepDetail(-1));
-  document.querySelector(".btn-next-detail").addEventListener("click", () => stepDetail(1));
 
-  // Soporta los botones atrás/adelante del navegador.
-  window.addEventListener("popstate", () => {
-    const { tipo, id } = getParams();
-    renderDetail(tipo, id);
-  });
+
 
   /* ---------- Carga inicial ---------- */
   const { tipo, id } = getParams();

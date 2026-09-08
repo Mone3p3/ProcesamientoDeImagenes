@@ -9,7 +9,7 @@ const TEAMS = [
     color2: "#C9A227",
     fundacion: "1939",
     estadioId: "estadio-monterrey",
-    descripcion: "Texto de ejemplo: reseña breve del equipo, historia y logros destacados. Sustituye este contenido por la información oficial cuando conectes la base de datos.",
+    descripcion: "Lorem Ipsum",
     estadisticas: {
       victorias: 84, victoriasNota: "1ero",
       derrotas: 58,
@@ -27,7 +27,7 @@ const TEAMS = [
     color2: "#1A1A1A",
     fundacion: "1940",
     estadioId: "estadio-cdmx",
-    descripcion: "Texto de ejemplo: reseña breve del equipo, historia y logros destacados. Sustituye este contenido por la información oficial cuando conectes la base de datos.",
+    descripcion: "Lorem Ipsum",
     estadisticas: {
       victorias: 79, victoriasNota: "2do",
       derrotas: 63,
@@ -155,7 +155,7 @@ const STADIUMS = [
     capacidad: "27,398",
     inauguracion: "2019",
     color: "#1B2A5E",
-    descripcion: "Texto de ejemplo: historia, características y datos curiosos del estadio. Sustituye este contenido por la información oficial cuando conectes la base de datos.",
+    descripcion: "LoremIpsum",
     fotos: [
       { color: "#1B2A5E", caption: "Descripción de la foto" },
       { color: "#C9A227", caption: "Descripción de la foto" },

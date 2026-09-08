@@ -173,8 +173,7 @@ a{ color: inherit; text-decoration: none; }
 .diamond-pattern{
   position: absolute; inset: 0;
   opacity: .5;
-  mix-blend-mode: overlay;
-  background-image: repeating-linear-gradient(115deg, rgba(255,255,255,.09) 0 2px, transparent 2px 26px);
+  background-image:url(../Images/Walmart_Park.jpg);
   pointer-events: none;
 }
 .hero-content{
@@ -414,12 +413,17 @@ a{ color: inherit; text-decoration: none; }
   display: flex;
   align-items: flex-end;
   padding: 24px 20px;
+  background-image: none;
+  background-position: center; 
+  background-size: cover; 
+
 }
 .detail-hero::before{
   content:"";
   position: absolute; inset: 0;
   background: linear-gradient(to top, var(--bg) 4%, rgba(0,0,0,.25) 60%, rgba(0,0,0,.15));
 }
+
 .detail-hero .shield-lg{
   width: 64px; height: 64px;
   border-radius: 16px;
@@ -430,7 +434,17 @@ a{ color: inherit; text-decoration: none; }
   font-size: 1.4rem;
   margin-bottom: 12px;
   position: relative; z-index: 1;
+  overflow: hidden;
+  padding: 5px;
 }
+
+.shield-lg img{
+
+  max-width: 100%;
+  height: auto;
+
+}
+
 .detail-hero .titles{ position: relative; z-index: 1; }
 .detail-hero h2{ font-size: 1.7rem; margin: 0; }
 .detail-hero .sub{ color: var(--text-muted); font-size: .9rem; margin-top: 2px; }
