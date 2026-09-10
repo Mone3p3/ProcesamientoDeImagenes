@@ -1191,3 +1191,33 @@ body.page-screen main{
 .confirm-card h3{ font-size: 1.05rem; margin-bottom: 8px; }
 .confirm-card p{ color: var(--text-muted); font-size: .85rem; margin-bottom: 20px; }
 .confirm-actions{ display: flex; gap: 10px; }
+
+body.page-screen a-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+body.page-screen a-scene canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+body.page-screen .detail-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+body.page-screen .ar-toolbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
