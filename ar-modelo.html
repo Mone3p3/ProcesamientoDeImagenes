@@ -1,79 +1,91 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Modelo 3D — Tocar Base</title>
-<meta name="theme-color" content="#0a0a0a">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Modelo 3D — Tocar Base</title>
+    <meta name="theme-color" content="#0a0a0a">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!--- FONTS ------------------------------------------------------------------>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
-<script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-</head>
-<body class="page-screen">
+    <!--- ESTILOS -------------------------------------------------------------->
 
-<main>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 
-  <div class="detail-top">
-    <a href="ar-escaner.html" class="circle-btn" id="model3dBack" aria-label="Regresar">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-    </a>
-  </div>
+    <!--- AR ----------------------------------------------------------------->
 
-<a-scene
-    mindar-image="imageTargetSrc: targets/rwlt.mind; uiScanning: yes;"
-    embedded
-    vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false">
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
-    <a-assets>
-        <a-asset-item
-            id="modelo"
-            src="modelos/Bisonte_Actu.glb">
-        </a-asset-item>
-    </a-assets>
+  </head>
 
-    <a-camera
-        id="camera"
-        position="0 0 0"
-        look-controls="enabled: false">
-    </a-camera>
 
-    <a-entity
-        id="target"
-        mindar-image-target="targetIndex: 0">
+  <body class="page-screen">
 
-         <a-entity
-            gltf-model="#modelo"
-            position="0 0 0"
-            scale="0.1 0.1 0.1">
-        </a-entity>
+    <main>
 
-    </a-entity>
+      <div class="detail-top">
+        <a href="index.html" class="circle-btn" id="model3dBack" aria-label="Regresar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </a>
+      </div>
 
-</a-scene>
+      <div class="camera-canvas">
+        <a-scene
+          mindar-image="imageTargetSrc: targets/logos.mind; uiScanning: yes;"
+          embedded
+          vr-mode-ui="enabled: false"
+          device-orientation-permission-ui="enabled: false">
 
-  <div class="ar-toolbar">
-    <button class="ar-icon-btn" aria-label="Animación / pose" disabled>
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="4" r="2"/><path d="M12 6v6l-4 8M12 12l4 8M8 10l-4 2M16 10l4 2"/></svg>
-    </button>
-    <button class="ar-icon-btn" aria-label="Rotar" disabled>
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 1 1 3 6.3"/><path d="M4 18v-5h5"/></svg>
-    </button>
-    <button class="ar-icon-btn" aria-label="Sonido / animación" disabled>
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 15l6-10 6 10z"/><path d="M15 15l3-5 3 5" stroke-linecap="round"/></svg>
-    </button>
-    <button class="ar-icon-btn" aria-label="Tomar foto" disabled>
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l2-2h4l2 2"/></svg>
-    </button>
-  </div>
-</main>
+          <a-assets>
+              <a-asset-item
+                  id="modelo"
+                  src="modelos/Bisonte_Actu.glb">
+              </a-asset-item>
 
-</body>
+              <a-asset-item
+                  id="zelda"
+                  src="modelos/Zelda.glb">
+              </a-asset-item>
+          </a-assets>
+
+          <a-camera
+              id="camera"
+              position="0 0 0"
+              look-controls="enabled: false">
+          </a-camera>
+
+            <a-entity id="targets-container"></a-entity>
+
+        </a-scene>
+      </div>
+
+
+
+
+
+      <div class="ar-toolbar">
+        <button class="ar-icon-btn" aria-label="Animación / pose" disabled>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="4" r="2"/><path d="M12 6v6l-4 8M12 12l4 8M8 10l-4 2M16 10l4 2"/></svg>
+        </button>
+        <button class="ar-icon-btn" aria-label="Rotar" disabled>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 1 1 3 6.3"/><path d="M4 18v-5h5"/></svg>
+        </button>
+        <button class="ar-icon-btn" aria-label="Sonido / animación" disabled>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 15l6-10 6 10z"/><path d="M15 15l3-5 3 5" stroke-linecap="round"/></svg>
+        </button>
+        <button class="ar-icon-btn" aria-label="Tomar foto" disabled>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 6l2-2h4l2 2"/></svg>
+        </button>
+      </div>
+    </main>
+
+  </body>
+  <script src="js/targets.js"></script>
+
 </html>
