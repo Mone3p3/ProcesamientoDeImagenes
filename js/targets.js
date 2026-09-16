@@ -27,11 +27,13 @@ modelos.forEach((modelo, index) => {
         `targetIndex: ${index}`
     );
 
-    const modelo3D = document.createElement('a-entity');
+    const modelo3D = document.createElement('a-gltf-model');
 
-    modelo3D.setAttribute('gltf-model', modelo);
+    modelo3D.setAttribute('rotation', '0 0 0');
     modelo3D.setAttribute('position', '0 0 0');
-    modelo3D.setAttribute('scale', '0.1 0.1 0.1');
+    modelo3D.setAttribute('scale', '0.05 0.05 0.05');
+    modelo3D.setAttribute('src', modelo);
+    modelo3D.setAttribute('animation-mixer', 'clip: *; loop: repeat');
 
     target.appendChild(modelo3D);
     container.appendChild(target);
