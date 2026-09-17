@@ -975,6 +975,7 @@ body.page-screen main{
 }
 
 .ar-toolbar{
+  z-index: 99999;
   position: fixed;
   display: flex;
   justify-content: space-evenly;
@@ -991,7 +992,6 @@ body.page-screen main{
   background: #7a3fd1;
   color: #fff;
   display: flex; align-items: center; justify-content: center;
-  opacity: .55;
 }
 
 /* =========================================================================
@@ -1179,6 +1179,39 @@ body.page-screen main{
   color: var(--text-muted);
 }
 .trivia-next-wrap{ text-align: center; }
+
+/* =========================================================================
+   Confeti (botón Escanear)
+   ========================================================================= */
+.confetti-layer{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5000;
+  overflow: hidden;
+}
+.confetti-piece{
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 16px;
+  opacity: .9;
+  transform-style: preserve-3d;
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes confetti-fall{
+  0%{
+    transform: translate3d(0,0,0) rotateX(0) rotateY(0) rotateZ(0);
+    opacity: 1;
+  }
+  100%{
+    transform: translate3d(var(--drift), 110vh, 0) rotateX(720deg) rotateY(540deg) rotateZ(360deg);
+    opacity: .9;
+  }
+}
+
 
 /* =========================================================================
    Modal de confirmación de salida

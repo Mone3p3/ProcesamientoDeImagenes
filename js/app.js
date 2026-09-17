@@ -183,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "ar-escaner.html";
   });
 
+
   /* ---------- Año dinámico en el footer ---------- */
   document.getElementById("year").textContent = new Date().getFullYear();
 });
