@@ -55,14 +55,15 @@
   <!--- INICIO ------------------------------------------->
   <section id="inicio" aria-label="Inicio">
     <div class="hero">
-      <div class="hero bg-black bg-gradient">
-        <div class="position-relative overflow-hidden w-100 opacity-75">
+      <div class="hero bg-black">
+        <div class="position-relative overflow-hidden w-100">
           <img class="hero-img" src="Images/Bateador_1.jpg" alt="Inicio Imagen" class="d-block">
         </div>
+        <div class="mask position-absolute bottom-0 start-0 w-100"></div>
       </div>
 
       <div class="hero-content">
-        <h1>Liga Mexicana de Béisbol</h1>
+        <h1>Liga Nacional de Béisbol</h1>
         <p>Descubre a los equipos, los estadios y la historia detrás del béisbol profesional mexicano, todo en un mismo lugar.</p>
       </div>
     </div>
@@ -74,7 +75,16 @@
       <h2>Equipos</h2>
       <div class="rule"></div>
     </div>
-    <p class="section-sub">Toca un escudo para conocer más sobre cada equipo.</p>
+    <p class="section-sub">Da click en un escudo para conocer más sobre cada equipo.</p>
+
+    <!-- Filtro por zona: reutiliza las clases .filter-row / .chip que ya
+         usa el editor de la galería, para mantener el mismo estilo de píldora. -->
+    <div class="filter-row zona-filters" role="group" aria-label="Filtrar equipos por zona">
+      <button class="chip is-active" data-zona="todos">Todos</button>
+      <button class="chip" data-zona="central">Central</button>
+      <button class="chip" data-zona="este">Este</button>
+      <button class="chip" data-zona="oeste">Oeste</button>
+    </div>
 
     <div class="card-rail-wrap">
       

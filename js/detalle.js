@@ -111,6 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const item = list[idx];
 
     if (type === "team") {
+      dTop.style.background = `linear-gradient(160deg, ${item.color}, ${item.color2} 48%, #0a0a0a 90%)`;
+      dShield.style.background = `linear-gradient(145deg, ${item.color}, ${item.color2})`;
+      dShield.innerHTML = `
+        <img src="${item.escudo}" alt="Escudo de ${item.nombre} ${item.apodo}"
+             onerror="this.remove(); this.parentElement.textContent='${initials(item.nombre)}';">
+      `;
       dTitle.textContent = `${item.nombre} ${item.apodo}`;
       dSub.textContent = item.ciudad;
       dText.textContent = item.descripcion;

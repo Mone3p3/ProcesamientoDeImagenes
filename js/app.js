@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- Header sólido al hacer scroll ---------- */
@@ -39,15 +38,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const stadiumById = (id) => STADIUMS.find(s => s.id === id);
 
   /* ---------- Render: carrusel de Equipos ---------- */
-  const teamRail = document.getElementById("teamRail");
-  TEAMS.forEach(team => {
+const teamRail = document.getElementById("teamRail");
+
+// Ahora esto vive dentro de una función, para poder llamarla de nuevo
+// cada vez que se toca un botón de zona distinto.
+function renderTeamCards(zonaFiltro) {
+  teamRail.innerHTML = ""; // limpia las tarjetas anteriores antes de re-dibujar
+
+  const equiposFiltrados = zonaFiltro === "todos"
+    ? TEAMS
+    : TEAMS.filter(team => team.zona === zonaFiltro);
+
+  equiposFiltrados.forEach(team => {
     const el = document.createElement("div");
     el.className = "team-card";
     el.setAttribute("role", "button");
     el.setAttribute("tabindex", "0");
     el.innerHTML = `
-      <div class="team-shield">
-        <img src="../Images/Sultanes_3.png" alt="Escudos">
+      <div class="team-shield" style="background:linear-gradient(145deg, ${team.color}, ${team.color2})">
+        <img src="${team.escudo}" alt="Escudo de ${team.nombre} ${team.apodo}"
+             onerror="this.remove(); this.parentElement.textContent='${initials(team.nombre)}';">
       </div>
       <div class="name">${team.nombre}</div>
       <div class="city">${team.apodo}</div>
@@ -57,6 +67,18 @@ document.addEventListener("DOMContentLoaded", () => {
     el.addEventListener("keydown", (e) => { if (e.key === "Enter") open(); });
     teamRail.appendChild(el);
   });
+}
+
+renderTeamCards("todos"); // dibujo inicial: todos los equipos
+
+// Botones de filtro por zona (Central / Este / Oeste / Todos)
+document.querySelectorAll(".zona-filters [data-zona]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".zona-filters [data-zona]").forEach(b => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    renderTeamCards(btn.dataset.zona);
+  });
+});
 
   /* ---------- Render: carrusel de Estadios ---------- */
   const stadiumRail = document.getElementById("stadiumRail");

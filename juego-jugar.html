@@ -22,16 +22,64 @@
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
     </a>
     <h2 class="app-screen-title">Base Out</h2>
-    <a class="circle-btn" id="gameCanvasInfo" aria-label="Ver instrucciones">
+    <button type="button" class="circle-btn" id="gameCanvasInfo" aria-label="Ver instrucciones">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01" stroke-linecap="round"/></svg>
-    </a>
+    </button>
   </div>
 
   <div class="game-field">
-    <div class="game-play-area">
+
+    <!-- Marcador (HUD) -->
+    <div class="game-hud">
+      <div class="hud-stat">
+        <span class="lbl">Marcador</span>
+        <span class="val" id="hudScore">0</span>
+      </div>
+      <div class="hud-stat align-end">
+        <span class="lbl">Outs</span>
+        <div class="hud-outs" aria-label="Outs restantes">
+          <span class="out-dot"></span>
+          <span class="out-dot"></span>
+          <span class="out-dot"></span>
+        </div>
+      </div>
+      <div class="hud-stat align-end">
+        <span class="lbl">Entrada</span>
+        <span class="val" id="hudLevel">1</span>
+      </div>
     </div>
+
+    <!-- Área de juego -->
+    <div class="game-play-area" id="gamePlayArea">
+      <canvas id="gameCanvas"></canvas>
+      <div class="game-overlay" id="gameOverlay" hidden></div>
+    </div>
+
   </div>
 </main>
 
+<!-- Modal de instrucciones del juego -->
+<div class="instructions-modal" id="gameInstructionsModal">
+  <div class="instructions-card">
+    <p>Mueve el bat arrastrando el dedo (o el mouse) por la pantalla, o usa las flechas ← → del teclado.</p>
+    <p>Toca la pantalla o presiona espacio para lanzar la pelota. Destruye todos los bloques para pasar a la siguiente entrada.</p>
+    <p>Si la pelota cae, pierdes un out. ¡Tres outs y se acaba el juego!</p>
+    <button class="btn-solid btn-block" id="gameInstructionsOk">OK</button>
+  </div>
+</div>
+
+<!-- Modal de confirmación al salir del juego -->
+<div class="confirm-modal" id="exitConfirmModal">
+  <div class="confirm-card">
+    <h3>¿Confirmas que quieres salir?</h3>
+    <p>Su progreso no se guardará</p>
+    <div class="confirm-actions">
+      <button class="btn-ghost" id="exitConfirmYes">Sí</button>
+      <button class="btn-solid" id="exitConfirmNo">No</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/juego.js"></script>
 </body>
 </html>
