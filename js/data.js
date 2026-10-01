@@ -422,35 +422,59 @@ const STADIUMS = [
   },
 ];
 
-/* Trivia: preguntas de ejemplo de verdadero/falso.
-   Cuando conectes la base de datos, sustituye este arreglo por una llamada
-   fetch() a tu API (ej. /api/trivia.php) que regrese objetos con el mismo
-   formato: { id, pregunta, respuesta (true/false) }. */
+/* Trivia: Liga Nacional de Béisbol (MLB, Estados Unidos).
+   Reemplaza el arreglo TRIVIA completo de js/data.js por este.
+   respuesta: true = Verdadero (derecha), false = Falso (izquierda). */
 const TRIVIA = [
   {
     id: 1,
-    pregunta: "Los Sultanes de Monterrey se fundaron en 1939.",
+    pregunta: "Los Dodgers de Los Ángeles pertenecen a la Liga Nacional.",
     respuesta: true,
   },
   {
     id: 2,
-    pregunta: "El Estadio Alfredo Harp Helú es la casa de los Diablos Rojos del México.",
-    respuesta: true,
-  },
-  {
-    id: 3,
-    pregunta: "Los Tigres de Quintana Roo juegan en Guadalajara, Jalisco.",
+    pregunta: "Los Yankees de Nueva York juegan en la Liga Nacional.",
     respuesta: false,
   },
   {
+    id: 3,
+    pregunta: "La Liga Nacional se fundó en 1876.",
+    respuesta: true,
+  },
+  {
     id: 4,
-    pregunta: "La Liga Mexicana de Béisbol tiene equipos en más de 8 ciudades.",
+    pregunta: "El Wrigley Field es la casa de los Cachorros de Chicago.",
     respuesta: true,
   },
   {
     id: 5,
-    pregunta: "Los Charros de Jalisco se fundaron después del año 2000.",
+    pregunta: "Los Medias Rojas de Boston forman parte de la Liga Nacional.",
     respuesta: false,
+  },
+  {
+    id: 6,
+    pregunta: "Los Dodgers jugaron en Brooklyn antes de mudarse a Los Ángeles.",
+    respuesta: true,
+  },
+  {
+    id: 7,
+    pregunta: "Los Mets de Nueva York pertenecen a la Liga Americana.",
+    respuesta: false,
+  },
+  {
+    id: 8,
+    pregunta: "Los Cardenales de San Luis son un equipo de la Liga Nacional.",
+    respuesta: true,
+  },
+  {
+    id: 9,
+    pregunta: "Los Gigantes de San Francisco juegan en el Dodger Stadium.",
+    respuesta: false,
+  },
+  {
+    id: 10,
+    pregunta: "Fernando Valenzuela ganó el Novato del Año y el Cy Young en 1981 con los Dodgers.",
+    respuesta: true,
   },
 ];
 
