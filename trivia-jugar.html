@@ -12,6 +12,7 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/trivia-swipe.css">
 </head>
 <body class="page-screen">
 
@@ -21,27 +22,67 @@
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
     </a>
     <h2 class="app-screen-title">Trivia</h2>
-    <a class="circle-btn" id="triviaInfo" aria-label="Ver instrucciones">
+    <button class="circle-btn" id="triviaInfo" aria-label="Ver instrucciones">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01" stroke-linecap="round"/></svg>
-    </a>
+    </button>
   </div>
 
-  <div class="trivia-content">
-    <div class="trivia-question-counter" id="triviaCounter">
-      Pregunta 1
-    </div>
-    <p class="trivia-question" id="triviaQuestion">
-      Esta es la pregunta
-    </p>
+  <!-- ============ PREGUNTAS ============ -->
+  <div class="trivia-content" id="triviaGame">
+    <div class="trivia-question-counter" id="triviaCounter">Pregunta 1 de 5</div>
+    <div class="trivia-progress" id="triviaProgress" aria-hidden="true"></div>
 
-    <div class="trivia-answers">
-      <button class="trivia-answer-btn" id="triviaTrue" data-value="true">Verdadero</button>
-      <button class="trivia-answer-btn" id="triviaFalse" data-value="false">Falso</button>
+    <div class="swipe-stage">
+      <div class="swipe-side swipe-side-left">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        Falso
+      </div>
+      <div class="swipe-side swipe-side-right">
+        Verdadero
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      </div>
+
+      <div class="swipe-card" id="swipeCard" tabindex="0" aria-live="polite">
+        <span class="stamp stamp-true">Verdadero</span>
+        <span class="stamp stamp-false">Falso</span>
+        <p class="trivia-question" id="triviaQuestion"></p>
+      </div>
     </div>
 
+    <p class="trivia-feedback" id="triviaFeedback"></p>
+
+    <!-- Pelota: se arrastra y se lanza a la izquierda (Falso) o derecha (Verdadero) -->
+    <div class="throw-zone">
+      <img class="throw-ball" id="throwBall" src="Images/Baseball.png" alt="Pelota de béisbol" draggable="false" tabindex="0" role="button" aria-label="Lanza la pelota a la derecha para Verdadero o a la izquierda para Falso">
+    </div>
+    <p class="throw-hint">Lanza la pelota</p>
+  </div>
+
+  <!-- ============ RESULTADO FINAL ============ -->
+  <div class="trivia-result" id="triviaResult" hidden>
+    <p class="result-label">Tu calificación</p>
+    <div class="result-score"><span id="resultScore">0</span><small>/5</small></div>
+    <h3 class="result-title" id="resultTitle"></h3>
+    <p class="result-msg" id="resultMsg"></p>
+    <div class="trivia-progress" id="resultDots" aria-hidden="true"></div>
+
+    <div class="result-actions">
+      <a href="index.html#trivia" class="btn-ghost">Salir</a>
+      <button class="btn-solid" id="triviaRetry">Jugar de nuevo</button>
+    </div>
   </div>
 </main>
 
+<!-- Modal de instrucciones -->
+<div class="instructions-modal" id="triviaInstructionsModal">
+  <div class="instructions-card">
+    <p>Lee cada afirmación y lanza la pelota para responder.</p>
+    <p>Arrastra la pelota y suéltala con impulso hacia la <strong>derecha</strong> si es verdadera o hacia la <strong>izquierda</strong> si es falsa. Son 5 preguntas y al final verás tu calificación.</p>
+    <button class="btn-solid btn-block" id="triviaInstructionsOk">OK</button>
+  </div>
+</div>
 
+<script src="js/data.js"></script>
+<script src="js/trivia-jugar.js"></script>
 </body>
 </html>
