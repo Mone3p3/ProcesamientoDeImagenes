@@ -477,15 +477,3 @@ const TRIVIA = [
     respuesta: true,
   },
 ];
-
-/* Galería: por ahora imágenes de ejemplo generadas por CSS/canvas.
-   Reemplaza `color` por una `url` real de foto cuando esté disponible.
-   (Esta sección no cambió respecto a la versión anterior.) */
-const GALLERY = [
-  { id: 1, titulo: "Jugada en home", color: "#1B2A5E" },
-  { id: 2, titulo: "Afición en las gradas", color: "#C8102E" },
-  { id: 3, titulo: "Lanzamiento", color: "#2E7D32" },
-  { id: 4, titulo: "Celebración", color: "#B08D2B" },
-  { id: 5, titulo: "Vista del estadio", color: "#5B2A86" },
-  { id: 6, titulo: "Entrenamiento", color: "#7A1F2B" },
-];

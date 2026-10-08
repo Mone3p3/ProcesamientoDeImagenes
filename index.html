@@ -16,6 +16,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
 
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/galeria.css">
 </head>
 <body>
 
@@ -180,17 +181,23 @@
   </section>
 
   <!--- GALERÍA ------------------------------------------------------------------------->
-  <section id="galeria" class="section" aria-label="Galería">
-    <div class="section-head reverse">
-      <h2>Galería</h2>
-      <div class="rule"></div>
-    </div>
-    <p class="section-sub">Toca una foto para editarla y aplicarle un filtro.</p>
+<section id="galeria" class="section" aria-label="Galería">
+  <div class="section-head reverse">
+    <h2>Galería</h2>
+    <div class="rule"></div>
+  </div>
+  <p class="section-sub">Sube tus fotos y toca una para editarla.</p>
 
-    <div class="gallery-grid" id="galleryGrid"></div>
-    
-  </section>
+  <div class="gallery-actions">
+    <button class="btn-solid" id="btnSubirFoto" type="button">Subir foto</button>
+    <button class="btn-ghost" id="btnBorrarTodo" type="button">Borrar todo</button>
+    <input type="file" id="fotoInput" accept="image/*" multiple hidden>
+    <p class="gallery-status" id="galleryStatus" role="status"></p>
+  </div>
 
+  <div class="gallery-grid" id="galleryGrid"></div>
+  <p class="gallery-empty" id="galleryEmpty" hidden>Aún no hay fotos. ¡Sube la primera!</p>
+</section>
  
   <!--- JUEGO ------------------------------------------------------------------------------------------>
   <section id="juego" class="section" aria-label="Juego">
@@ -232,5 +239,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
+<script src="js/galeria.js"></script>
 </body>
 </html>

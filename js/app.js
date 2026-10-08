@@ -1,3 +1,4 @@
+/* app.js — Interactividad de Tocar Base (Inicio). La galería vive en galeria.js */
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- Header sólido al hacer scroll ---------- */
@@ -6,12 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  /* ---------- Resaltar sección activa en el menú ---------- */
+  /* ---------- Menú y sección activa ---------- */
   const navPills = document.querySelectorAll(".nav-pill[data-section]");
   const sections = [...navPills].map(a => document.getElementById(a.dataset.section)).filter(Boolean);
-
-  const offcanvasEl = document.getElementById("menuPanel");
-  const offcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+  const offcanvas = bootstrap.Offcanvas.getOrCreateInstance(document.getElementById("menuPanel"));
 
   navPills.forEach(pill => {
     pill.addEventListener("click", (e) => {
@@ -33,65 +32,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- Utilidades ---------- */
   const initials = (nombre) => nombre.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
-
   const teamById = (id) => TEAMS.find(t => t.id === id);
-  const stadiumById = (id) => STADIUMS.find(s => s.id === id);
 
-  /* ---------- Render: carrusel de Equipos ---------- */
-const teamRail = document.getElementById("teamRail");
+  /* ---------- Equipos (con filtro por zona) ---------- */
+  const teamRail = document.getElementById("teamRail");
 
-// Ahora esto vive dentro de una función, para poder llamarla de nuevo
-// cada vez que se toca un botón de zona distinto.
-function renderTeamCards(zonaFiltro) {
-  teamRail.innerHTML = ""; // limpia las tarjetas anteriores antes de re-dibujar
+  function renderTeamCards(zonaFiltro) {
+    teamRail.innerHTML = "";
+    const lista = zonaFiltro === "todos" ? TEAMS : TEAMS.filter(t => t.zona === zonaFiltro);
 
-  const equiposFiltrados = zonaFiltro === "todos"
-    ? TEAMS
-    : TEAMS.filter(team => team.zona === zonaFiltro);
+    lista.forEach(team => {
+      const el = document.createElement("div");
+      el.className = "team-card";
+      el.setAttribute("role", "button");
+      el.setAttribute("tabindex", "0");
+      el.innerHTML = `
+        <div class="team-shield" style="background:linear-gradient(145deg, ${team.color}, ${team.color2})">
+          <img src="${team.escudo}" alt="Escudo de ${team.nombre} ${team.apodo}"
+               onerror="this.remove(); this.parentElement.textContent='${initials(team.nombre)}';">
+        </div>
+        <div class="name">${team.nombre}</div>
+        <div class="city">${team.apodo}</div>
+      `;
+      const open = () => { window.location.href = `detalle.html?tipo=team&id=${encodeURIComponent(team.id)}`; };
+      el.addEventListener("click", open);
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter") open(); });
+      teamRail.appendChild(el);
+    });
+  }
+  renderTeamCards("todos");
 
-  equiposFiltrados.forEach(team => {
-    const el = document.createElement("div");
-    el.className = "team-card";
-    el.setAttribute("role", "button");
-    el.setAttribute("tabindex", "0");
-    el.innerHTML = `
-      <div class="team-shield" style="background:linear-gradient(145deg, ${team.color}, ${team.color2})">
-        <img src="${team.escudo}" alt="Escudo de ${team.nombre} ${team.apodo}"
-             onerror="this.remove(); this.parentElement.textContent='${initials(team.nombre)}';">
-      </div>
-      <div class="name">${team.nombre}</div>
-      <div class="city">${team.apodo}</div>
-    `;
-    const open = () => { window.location.href = `detalle.html?tipo=team&id=${encodeURIComponent(team.id)}`; };
-    el.addEventListener("click", open);
-    el.addEventListener("keydown", (e) => { if (e.key === "Enter") open(); });
-    teamRail.appendChild(el);
+  document.querySelectorAll(".zona-filters [data-zona]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".zona-filters [data-zona]").forEach(b => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+      renderTeamCards(btn.dataset.zona);
+    });
   });
-}
 
-renderTeamCards("todos"); // dibujo inicial: todos los equipos
-
-// Botones de filtro por zona (Central / Este / Oeste / Todos)
-document.querySelectorAll(".zona-filters [data-zona]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".zona-filters [data-zona]").forEach(b => b.classList.remove("is-active"));
-    btn.classList.add("is-active");
-    renderTeamCards(btn.dataset.zona);
-  });
-});
-
-  /* ---------- Render: carrusel de Estadios ---------- */
+  /* ---------- Estadios ---------- */
   const stadiumRail = document.getElementById("stadiumRail");
   STADIUMS.forEach(st => {
-    const team = teamById(st.equipoId);
     const el = document.createElement("div");
     el.className = "stadium-card";
     el.setAttribute("role", "button");
     el.setAttribute("tabindex", "0");
     el.innerHTML = `
-     
       <div class="photo">
-        <img src="../Images/Walmart_Park.jpg" alt="Estadios">
+        <img src="Images/Walmart_Park.jpg" alt="${st.nombre}">
         <div class="info">
           <div class="name">${st.nombre}</div>
           <div class="city">${st.ciudad}</div>
@@ -103,109 +91,4 @@ document.querySelectorAll(".zona-filters [data-zona]").forEach(btn => {
     el.addEventListener("keydown", (e) => { if (e.key === "Enter") open(); });
     stadiumRail.appendChild(el);
   });
-
-
-  /* ---------- Galería con editor de fotos ---------- */
-  const galleryGrid = document.getElementById("galleryGrid");
-  GALLERY.forEach(photo => {
-    const tile = document.createElement("div");
-    tile.className = "gallery-tile";
-    tile.style.background = `linear-gradient(150deg, ${photo.color}, #0a0a0a)`;
-    tile.setAttribute("role", "button");
-    tile.setAttribute("tabindex", "0");
-   
-    const open = () => openEditor(photo);
-    tile.addEventListener("click", open);
-    tile.addEventListener("keydown", (e) => { if (e.key === "Enter") open(); });
-    galleryGrid.appendChild(tile);
-  });
-
-  const editorOverlay = document.getElementById("editorOverlay");
-  const canvas = document.getElementById("editorCanvas");
-  const ctx = canvas.getContext("2d");
-  const brightness = document.getElementById("brightnessRange");
-  let activeFilter = "none";
-  let activePhoto = null;
-
-  const FILTERS = {
-    none: "none",
-    bn: "grayscale(1)",
-    sepia: "sepia(.85)",
-    vintage: "sepia(.35) contrast(1.1) saturate(1.2)",
-    contraste: "contrast(1.35) saturate(1.1)",
-  };
-
-  function drawPhoto() {
-    canvas.width = 320;
-    canvas.height = 320;
-    const grad = ctx.createLinearGradient(0, 0, 320, 320);
-    grad.addColorStop(0, activePhoto.color);
-    grad.addColorStop(1, "#0a0a0a");
-
-    ctx.filter = "none";
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 320, 320);
-
-
-    // Aplicar filtro re-dibujando con ctx.filter sobre el resultado
-    const snapshot = ctx.getImageData(0, 0, 320, 320);
-    const tmp = document.createElement("canvas");
-    tmp.width = 320; tmp.height = 320;
-    tmp.getContext("2d").putImageData(snapshot, 0, 0);
-
-    ctx.clearRect(0, 0, 320, 320);
-    ctx.filter = `${FILTERS[activeFilter]} brightness(${brightness.value}%)`;
-    ctx.drawImage(tmp, 0, 0);
-    ctx.filter = "none";
-  }
-
-  function openEditor(photo) {
-    activePhoto = photo;
-    activeFilter = "none";
-    brightness.value = 100;
-    document.querySelectorAll(".chip").forEach(c => c.classList.toggle("is-active", c.dataset.filter === "none"));
-    document.getElementById("editorTitle").textContent = photo.titulo;
-    drawPhoto();
-    editorOverlay.classList.add("is-open");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeEditor() {
-    editorOverlay.classList.remove("is-open");
-    document.body.style.overflow = "";
-  }
-
-  document.querySelectorAll(".chip").forEach(chip => {
-    chip.addEventListener("click", () => {
-      activeFilter = chip.dataset.filter;
-      document.querySelectorAll(".chip").forEach(c => c.classList.remove("is-active"));
-      chip.classList.add("is-active");
-      drawPhoto();
-    });
-  });
-
-  brightness.addEventListener("input", drawPhoto);
-  document.getElementById("closeEditor").addEventListener("click", closeEditor);
-  document.getElementById("cancelEditor").addEventListener("click", closeEditor);
-
-  document.getElementById("downloadEditor").addEventListener("click", () => {
-    const link = document.createElement("a");
-    link.download = `${activePhoto.titulo.replace(/\s+/g, "_").toLowerCase()}.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-  });
-
- 
-
-
-  /*--- REALIDAD AUMENTADA ----------------------------------*/
-  const arInstructionsModal = document.getElementById("arInstructionsModal");
-
-  document.getElementById("btnEscanear").addEventListener("click", () => {
-    window.location.href = "ar-escaner.html";
-  });
-
-
-  /* ---------- Año dinámico en el footer ---------- */
-  document.getElementById("year").textContent = new Date().getFullYear();
 });
