@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const ROWS_START = 4;
   const ROWS_MAX = 7;
   const ROW_COLORS = ["#e2231a", "#C9A227", "#1B2A5E", "#2E7D32", "#5B2A86", "#F58220", "#0D6EFD"];
+  const LEVELS_TO_WIN = 1; // entradas completadas para ganar la medalla
 
   /* ---------- Elementos del DOM ---------- */
   const playArea = document.getElementById("gamePlayArea");
@@ -188,7 +189,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function clearLevel() {
     state = "levelup";
-    showOverlay(`<h3>¡Entrada completa!</h3><p>Vas por ${score} puntos</p>`);
+
+    // Recompensa: medalla + sticker de equipo para la galería
+    let extra = "";
+    const R = window.TocarBaseRecompensas;
+    if (R && level >= LEVELS_TO_WIN && R.ganar("juego")) {
+      extra = R.bannerHTML("juego", true);
+    }
+
+    showOverlay(`<h3>¡Entrada completa!</h3><p>Vas por ${score} puntos</p>${extra}`);
     setTimeout(() => {
       level++;
       buildBricks(false);
@@ -196,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
       snapBallToPaddle();
       updateHud();
       showOverlay(readyOverlayHTML());
-    }, 1200);
+    }, extra ? 3000 : 1200);
   }
 
   function restartGame() {

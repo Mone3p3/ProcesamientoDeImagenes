@@ -171,12 +171,36 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      // 4) Descarga la imagen final.
-      const link = document.createElement("a");
-      link.download = `tocar-base-ar-${Date.now()}.png`;
-      link.href = outCanvas.toDataURL("image/png");
-      link.click();
+      // 4) Guarda la imagen final en la galería (ya no se descarga).
+      btnFoto.disabled = true;
+      outCanvas.toBlob(async (blob) => {
+        try {
+          if (!blob) throw new Error("No se pudo generar la imagen");
+          await TocarBaseGaleria.add(blob, `Foto AR ${new Date().toLocaleString("es-MX")}`);
+          showToast("¡Foto guardada en la galería!");
+        } catch (err) {
+          console.error(err);
+          showToast("No se pudo guardar la foto.");
+        } finally {
+          btnFoto.disabled = false;
+        }
+      }, "image/jpeg", 0.92);
     });
+  }
+
+  // Aviso breve en pantalla
+  function showToast(msg) {
+    const t = document.createElement("div");
+    t.textContent = msg;
+    t.setAttribute("role", "status");
+    t.style.cssText =
+      "position:fixed;left:50%;bottom:calc(110px + env(safe-area-inset-bottom,0px));" +
+      "transform:translateX(-50%);background:rgba(10,10,10,.9);color:#fff;" +
+      "padding:10px 18px;border-radius:999px;font:600 14px Barlow,sans-serif;" +
+      "z-index:9999;pointer-events:none;transition:opacity .4s;";
+    document.body.appendChild(t);
+    setTimeout(() => (t.style.opacity = "0"), 1800);
+    setTimeout(() => t.remove(), 2300);
   }
   
 });

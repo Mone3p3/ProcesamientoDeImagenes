@@ -6,6 +6,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   const TOTAL = 5;
+  const WIN_SCORE = 4;       // aciertos mínimos para ganar la medalla
   const THRESHOLD = 70;      // px arrastrados para contar como lanzamiento
   const MIN_SPEED = 0.5;     // px/ms: un "flick" rápido también cuenta
   const NEXT_DELAY = 1100;   // ms que se ve el resultado de cada pregunta
@@ -140,13 +141,22 @@ document.addEventListener("DOMContentLoaded", () => {
     renderDots(document.getElementById("resultDots"));
 
     let title, msg;
-    if (score === questions.length) { title = "¡Cuadrangular!"; msg = "Respondiste todo bien. Eres un experto de la LMB."; }
+    if (score === questions.length) { title = "¡Cuadrangular!"; msg = "Respondiste todo bien. Eres un experto de la Liga Nacional."; }
     else if (score >= 4)            { title = "¡Gran juego!"; msg = "Casi perfecto. Te faltó muy poco."; }
     else if (score >= 3)            { title = "Buen turno al bat"; msg = "Vas bien. Repasa los equipos y estadios y vuelve a intentarlo."; }
     else if (score >= 1)            { title = "Sigue practicando"; msg = "Explora la app y regresa por la revancha."; }
     else                            { title = "Ponchado"; msg = "Esta vez no hubo suerte. ¡Intenta de nuevo!"; }
     document.getElementById("resultTitle").textContent = title;
     document.getElementById("resultMsg").textContent = msg;
+
+    // Recompensa: medalla + sticker de equipo para la galería
+    const R = window.TocarBaseRecompensas;
+    const oldBanner = resultEl.querySelector(".reward-banner");
+    if (oldBanner) oldBanner.remove();
+    if (R && score >= WIN_SCORE) {
+      const nuevo = R.ganar("trivia");
+      resultEl.querySelector(".result-actions").insertAdjacentHTML("beforebegin", R.bannerHTML("trivia", nuevo));
+    }
   }
 
   /* ---------- Arrastrar y lanzar la pelota ---------- */
@@ -168,9 +178,9 @@ document.addEventListener("DOMContentLoaded", () => {
     dy = e.clientY - startY;
     const now = performance.now();
     samples.push({ t: now, x: e.clientX });
-    samples = samples.filter(s => now - s.t < 100);   // solo los últimos 100 ms
+    samples = samples.filter(s => now - s.t < 100);
 
-    ball.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx * 1.2}deg)`;
+    ball.style.transform = `translate(${dx}px, ${dy}px)`;
     setFeel(dx);
   });
 

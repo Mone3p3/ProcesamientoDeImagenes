@@ -16,6 +16,11 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+      /* Los botones de interacción solo aparecen cuando se detecta un escudo */
+      .ar-toolbar { transition: opacity .25s ease, visibility .25s; }
+      .ar-toolbar:not(.is-visible) { opacity: 0; visibility: hidden; pointer-events: none; }
+    </style>
 
     <!--- AR ---------------------
     -------------------------------------------->
@@ -47,12 +52,12 @@
           <a-assets>
               <a-asset-item
                   id="modelo"
-                  src="modelos/Bisonte_Baile.glb">
+                  src="modelos/Bisonte_Baile_2.glb">
               </a-asset-item>
 
               <a-asset-item
-                  id="zelda"
-                  src="modelos/Zelda.glb">
+                  id="B_Cardinals"
+                  src="modelos/Bisonte_Braves.glb">
               </a-asset-item>
           </a-assets>
 
@@ -87,7 +92,8 @@
         </button>
       </div>
     </main>
-
+  
+  <script src="js/galeria-db.js"></script>
   <script src="js/targets.js"></script>
   <script src="js/RA-Animacion_Particulas.js"></script>
   </body>

@@ -2,7 +2,7 @@ const container = document.querySelector('#targets-container');
 
 const modelos = [
     '#modelo',
-    '#zelda',
+    '#B_Cardinals',
     '#modelo',
     '#zelda',
     '#modelo',
@@ -46,3 +46,34 @@ modelos.forEach((modelo, index) => {
         document.dispatchEvent(new CustomEvent('modelo-oculto', { detail: { modelo3D } }));
     });
 });
+
+/* ---------------------------------------------------------------------
+   Barra de botones: solo se muestra mientras se detecta un escudo.
+   Al perderlo espera 1.5 s antes de ocultarla, para que no parpadee si
+   el rastreo se pierde un instante.
+   (Si prefieres que se quede visible después del primer escaneo, borra
+   el bloque del "modelo-oculto".)
+   --------------------------------------------------------------------- */
+(function () {
+    const toolbar = document.querySelector('.ar-toolbar');
+    if (!toolbar) return;
+
+    const visibles = new Set();
+    let hideTimer = null;
+
+    document.addEventListener('modelo-visible', (e) => {
+        visibles.add(e.detail.modelo3D);
+        clearTimeout(hideTimer);
+        toolbar.classList.add('is-visible');
+    });
+
+    document.addEventListener('modelo-oculto', (e) => {
+        visibles.delete(e.detail.modelo3D);
+        if (visibles.size === 0) {
+            clearTimeout(hideTimer);
+            hideTimer = setTimeout(() => {
+                if (visibles.size === 0) toolbar.classList.remove('is-visible');
+            }, 1500);
+        }
+    });
+})();

@@ -1,48 +1,23 @@
 /* =========================================================================
-   galeria.js — Galería con subida de fotos, editor y guardado local
+   galeria.js — Galería del index (fotos tomadas en la AR) + editor de filtros
    -------------------------------------------------------------------------
-   - Las fotos se guardan en IndexedDB (en el navegador del usuario), así
-     que siguen ahí al recargar la página. No necesita servidor.
-   - El editor crea su propio HTML, solo hace falta la sección #galeria.
+   Requiere galeria-db.js cargado antes.
+   Al tocar una foto se abre el editor con filtros (térmico, pixeleado,
+   desenfoque, saturación) para descargarla, guardar una copia o eliminarla.
    ========================================================================= */
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("galleryGrid");
-  const input = document.getElementById("fotoInput");
-  const btnSubir = document.getElementById("btnSubirFoto");
   const emptyMsg = document.getElementById("galleryEmpty");
   const statusEl = document.getElementById("galleryStatus");
-  if (!grid || !input || !btnSubir) return;
+  const btnBorrarTodo = document.getElementById("btnBorrarTodo");
+  if (!grid || !window.TocarBaseGaleria) return;
 
-  /* ---------- IndexedDB ---------- */
-  const DB_NAME = "tocarbase-galeria", STORE = "fotos";
-  let dbPromise = null;
-  function db() {
-    if (!dbPromise) {
-      dbPromise = new Promise((resolve, reject) => {
-        const req = indexedDB.open(DB_NAME, 1);
-        req.onupgradeneeded = () => req.result.createObjectStore(STORE, { keyPath: "id", autoIncrement: true });
-        req.onsuccess = () => resolve(req.result);
-        req.onerror = () => reject(req.error);
-      });
-    }
-    return dbPromise;
-  }
-  async function run(mode, fn) {
-    const d = await db();
-    return new Promise((resolve, reject) => {
-      const tx = d.transaction(STORE, mode);
-      const req = fn(tx.objectStore(STORE));
-      tx.oncomplete = () => resolve(req.result);
-      tx.onerror = () => reject(tx.error);
-    });
-  }
-  const addFoto = (blob, nombre) => run("readwrite", s => s.add({ blob, nombre, fecha: Date.now() }));
-  const getFotos = () => run("readonly", s => s.getAll());
-  const deleteFoto = (id) => run("readwrite", s => s.delete(id));
-  const clearFotos = () => run("readwrite", s => s.clear());
+  const DB = window.TocarBaseGaleria;
+  const R = window.TocarBaseRecompensas;
 
   /* ---------- Utilidades ---------- */
   function setStatus(msg) {
+    if (!statusEl) return;
     statusEl.textContent = msg;
     clearTimeout(setStatus.t);
     if (msg) setStatus.t = setTimeout(() => (statusEl.textContent = ""), 3500);
@@ -56,67 +31,55 @@ document.addEventListener("DOMContentLoaded", () => {
       img.src = url;
     });
   }
-  // Reduce la foto (máx. 1600 px) para no llenar el almacenamiento del navegador.
-  async function shrinkToBlob(file, max = 1600) {
-    const img = await loadImage(file);
-    const k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
-    const c = document.createElement("canvas");
-    c.width = Math.round(img.naturalWidth * k);
-    c.height = Math.round(img.naturalHeight * k);
-    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-    return new Promise(res => c.toBlob(res, "image/jpeg", 0.9));
-  }
 
   /* ---------- Galería ---------- */
   let urls = [];
+  let renderSeq = 0; // evita que dos renders simultáneos dupliquen las fotos
+
   async function renderGallery() {
-    urls.forEach(u => URL.revokeObjectURL(u));
-    urls = [];
-    grid.innerHTML = "";
+    const mySeq = ++renderSeq;
+
     let fotos = [];
-    try { fotos = (await getFotos()).sort((a, b) => b.fecha - a.fecha); }
+    try { fotos = (await DB.getAll()).sort((a, b) => b.fecha - a.fecha); }
     catch { setStatus("Tu navegador no permite guardar fotos aquí."); }
 
-    emptyMsg.hidden = fotos.length > 0;
+    // Si mientras tanto se pidió otro render, este ya quedó viejo: se descarta.
+    if (mySeq !== renderSeq) return;
+
+    const newUrls = [];
+    const frag = document.createDocumentFragment();
+
     fotos.forEach(foto => {
       const url = URL.createObjectURL(foto.blob);
-      urls.push(url);
+      newUrls.push(url);
       const tile = document.createElement("div");
       tile.className = "gallery-tile";
       tile.setAttribute("role", "button");
       tile.setAttribute("tabindex", "0");
       tile.setAttribute("aria-label", `Editar ${foto.nombre}`);
-      tile.innerHTML = `<img src="${url}" alt="${foto.nombre.replace(/"/g, "")}">`;
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = foto.nombre;
+      tile.appendChild(img);
       const open = () => openEditor(foto);
       tile.addEventListener("click", open);
       tile.addEventListener("keydown", e => { if (e.key === "Enter") open(); });
-      grid.appendChild(tile);
+      frag.appendChild(tile);
     });
+
+    urls.forEach(u => URL.revokeObjectURL(u));
+    urls = newUrls;
+    grid.replaceChildren(frag);
+
+    emptyMsg.hidden = fotos.length > 0;
+    if (btnBorrarTodo) btnBorrarTodo.hidden = fotos.length === 0;
   }
 
-  /* ---------- Subir fotos ---------- */
-  // El navegador/sistema muestra su propio selector de fotos, que en celular
-  // incluye los permisos ("permitir acceso a todas / seleccionar fotos").
-  btnSubir.addEventListener("click", () => input.click());
-  input.addEventListener("change", async () => {
-    const files = [...input.files].filter(f => f.type.startsWith("image/"));
-    input.value = "";
-    if (!files.length) return;
-    setStatus("Guardando…");
-    let ok = 0;
-    for (const f of files) {
-      try { await addFoto(await shrinkToBlob(f), f.name || "foto"); ok++; } catch (e) { console.error(e); }
-    }
-    setStatus(ok ? `${ok} foto${ok > 1 ? "s" : ""} agregada${ok > 1 ? "s" : ""}.` : "No se pudo guardar la foto.");
-    renderGallery();
-  });
-
-  /* ---------- Borrar todas las fotos ---------- */
-  const btnBorrarTodo = document.getElementById("btnBorrarTodo");
+  /* ---------- Borrar todo ---------- */
   if (btnBorrarTodo) {
     btnBorrarTodo.addEventListener("click", async () => {
       if (!confirm("¿Borrar TODAS las fotos de la galería? Esta acción no se puede deshacer.")) return;
-      await clearFotos();
+      await DB.clear();
       setStatus("Galería vaciada.");
       renderGallery();
     });
@@ -144,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="fx-row"><label for="fxSat">Saturación <output></output></label>
           <input type="range" class="form-range" id="fxSat" min="0" max="200" value="100"></div>
       </div>
+      <div class="fx-sticker" id="fxSticker"></div>
       <div class="editor-actions">
         <button class="btn-ghost" id="edReset">Restablecer</button>
         <button class="btn-solid" id="edDownload">Descargar</button>
@@ -154,6 +118,22 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     </div>`;
   document.body.appendChild(overlay);
+
+  const stickerCss = document.createElement("style");
+  stickerCss.textContent = `
+    .fx-sticker{margin:14px 0 4px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12)}
+    .fx-sticker-title{font-weight:700;font-size:.95rem;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+    .fx-badge{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;background:#C9A227;color:#111;border-radius:999px;padding:2px 8px}
+    .fx-locked{margin:0;font-size:.85rem;opacity:.7}
+    .sticker-row{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;-webkit-overflow-scrolling:touch}
+    .sticker-btn{flex:0 0 auto;min-width:48px;height:48px;border-radius:12px;border:2px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.06);color:inherit;display:grid;place-items:center;padding:4px 8px;font-size:.75rem;cursor:pointer}
+    .sticker-btn img{width:36px;height:36px;object-fit:contain;pointer-events:none}
+    .sticker-btn.is-active,.sticker-pos button.is-active{border-color:#C9A227;background:rgba(201,162,39,.18)}
+    .sticker-pos{display:flex;gap:8px;margin-top:6px}
+    .sticker-pos button{flex:1;height:38px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:transparent;color:inherit;cursor:pointer}
+  `;
+  document.head.appendChild(stickerCss);
 
   const canvas = overlay.querySelector("#edCanvas");
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
@@ -166,6 +146,97 @@ document.addEventListener("DOMContentLoaded", () => {
   const DEFAULTS = { thermal: 0, pixel: 0, blur: 0, sat: 100 };
   const hasCtxFilter = "filter" in ctx;
   let srcImg = null, activeFoto = null, raf = 0;
+
+  /* ---------- Sticker de equipo (recompensa) ---------- */
+  const stickerBox = overlay.querySelector("#fxSticker");
+  const sticker = { img: null, src: null, size: 25, pos: "br" };
+  const imgCache = {};
+  const esc = s => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  // Si pones aquí tu propia lista de escudos, se usa en lugar de la autodetección.
+  // Ejemplo: { nombre: "Sultanes", src: "Images/escudos/sultanes.png" }
+  const STICKERS_MANUAL = [];
+
+  function getStickers() {
+    if (STICKERS_MANUAL.length) return STICKERS_MANUAL;
+    let lista = null;
+    // Los "const" de data.js no cuelgan de window, pero sí se pueden leer por nombre.
+    if (typeof EQUIPOS !== "undefined") lista = EQUIPOS;
+    else if (typeof TEAMS !== "undefined") lista = TEAMS;
+    else if (typeof equipos !== "undefined") lista = equipos;
+    else if (typeof teams !== "undefined") lista = teams;
+    if (!Array.isArray(lista)) return [];
+    return lista
+      .map(t => ({
+        nombre: t.nombre || t.name || t.equipo || "Equipo",
+        src: t.escudo || t.logo || t.icono || t.imagen || t.img || t.shield || t.src,
+      }))
+      .filter(s => s.src);
+  }
+
+  function loadSticker(src) {
+    sticker.src = src;
+    if (!src) { sticker.img = null; scheduleDraw(); return; }
+    if (imgCache[src]) { sticker.img = imgCache[src]; scheduleDraw(); return; }
+    const im = new Image();
+    im.onload = () => {
+      imgCache[src] = im;
+      if (sticker.src === src) { sticker.img = im; scheduleDraw(); }
+    };
+    im.onerror = () => setStatus("No se pudo cargar el escudo.");
+    im.src = src;
+  }
+
+  function buildStickerUI() {
+    sticker.img = null; sticker.src = null; sticker.size = 25; sticker.pos = "br";
+
+    if (!R || !R.stickerDesbloqueado()) {
+      stickerBox.innerHTML = `<p class="fx-sticker-title">Sticker de equipo</p>
+        <p class="fx-locked">Bloqueado. Gana la Trivia o completa una entrada en el Juego para desbloquearlo.</p>`;
+      return;
+    }
+    const lista = getStickers();
+    if (!lista.length) {
+      stickerBox.innerHTML = `<p class="fx-sticker-title">Sticker de equipo <span class="fx-badge">Recompensa</span></p>
+        <p class="fx-locked">No se encontraron escudos de equipos para usar como sticker.</p>`;
+      return;
+    }
+
+    const posBtn = (p, label, arrow) =>
+      `<button type="button" data-pos="${p}" aria-label="${label}"${p === "br" ? ' class="is-active"' : ""}>${arrow}</button>`;
+    stickerBox.innerHTML = `
+      <p class="fx-sticker-title">Sticker de equipo <span class="fx-badge">Recompensa</span></p>
+      <div class="sticker-row">
+        <button type="button" class="sticker-btn is-active" data-i="-1" aria-label="Sin sticker">Ninguno</button>
+        ${lista.map((s, i) => `<button type="button" class="sticker-btn" data-i="${i}" aria-label="${esc(s.nombre)}" title="${esc(s.nombre)}"><img src="${esc(s.src)}" alt="" draggable="false"></button>`).join("")}
+      </div>
+      <div class="fx-row"><label for="fxStickerSize">Tamaño <output></output></label>
+        <input type="range" class="form-range" id="fxStickerSize" min="10" max="60" value="25"></div>
+      <div class="sticker-pos" role="group" aria-label="Posición del sticker">
+        ${posBtn("tl", "Arriba izquierda", "↖")}${posBtn("tr", "Arriba derecha", "↗")}
+        ${posBtn("bl", "Abajo izquierda", "↙")}${posBtn("br", "Abajo derecha", "↘")}
+      </div>`;
+
+    stickerBox.querySelector(".sticker-row").addEventListener("click", e => {
+      const btn = e.target.closest(".sticker-btn");
+      if (!btn) return;
+      stickerBox.querySelectorAll(".sticker-btn").forEach(b => b.classList.toggle("is-active", b === btn));
+      const i = +btn.dataset.i;
+      loadSticker(i >= 0 ? lista[i].src : null);
+    });
+    stickerBox.querySelector("#fxStickerSize").addEventListener("input", e => {
+      sticker.size = +e.target.value;
+      scheduleDraw();
+    });
+    stickerBox.querySelector(".sticker-pos").addEventListener("click", e => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      stickerBox.querySelectorAll(".sticker-pos button").forEach(b => b.classList.toggle("is-active", b === btn));
+      sticker.pos = btn.dataset.pos;
+      scheduleDraw();
+    });
+    updateOutputs();
+  }
 
   // Paleta térmica (negro/azul → morado → rojo → naranja → amarillo)
   const LUT = (() => {
@@ -258,6 +329,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       ctx.putImageData(img, 0, 0);
     }
+
+    // 4) Sticker de equipo (recompensa)
+    if (sticker.img) {
+      const im = sticker.img;
+      const ratio = (im.naturalWidth || 1) / (im.naturalHeight || 1);
+      const box = Math.min(w, h) * (sticker.size / 100);
+      const sw = ratio >= 1 ? box : box * ratio;
+      const sh = ratio >= 1 ? box / ratio : box;
+      const m = Math.min(w, h) * 0.09; // margen respecto a las esquinas
+      const x = sticker.pos.endsWith("l") ? m : w - sw - m;
+      const y = sticker.pos.startsWith("t") ? m : h - sh - m;
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,.45)";
+      ctx.shadowBlur = box * 0.08;
+      ctx.drawImage(im, x, y, sw, sh);
+      ctx.restore();
+    }
   }
 
   function scheduleDraw() {
@@ -269,6 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function resetSliders() {
     Object.entries(DEFAULTS).forEach(([k, v]) => (sliders[k].value = v));
+    buildStickerUI();
     scheduleDraw();
   }
   overlay.querySelector("#edReset").addEventListener("click", resetSliders);
@@ -276,7 +365,6 @@ document.addEventListener("DOMContentLoaded", () => {
   async function openEditor(foto) {
     try { srcImg = await loadImage(foto.blob); } catch { setStatus("No se pudo abrir la foto."); return; }
     activeFoto = foto;
-    overlay.querySelector("#edTitle").textContent = "Editar foto";
     resetSliders();
     overlay.classList.add("is-open");
     document.body.style.overflow = "hidden";
@@ -288,7 +376,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   overlay.querySelector("#edClose").addEventListener("click", closeEditor);
   overlay.addEventListener("click", e => { if (e.target === overlay) closeEditor(); });
-  document.addEventListener("keydown", e => { if (e.key === "Escape" && overlay.classList.contains("is-open")) closeEditor(); });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && overlay.classList.contains("is-open")) closeEditor();
+  });
 
   overlay.querySelector("#edDownload").addEventListener("click", () => {
     canvas.toBlob(blob => {
@@ -301,8 +391,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   overlay.querySelector("#edSaveCopy").addEventListener("click", () => {
+    const nombre = activeFoto ? activeFoto.nombre : "foto";
     canvas.toBlob(async blob => {
-      await addFoto(blob, `${activeFoto.nombre} (editada)`);
+      await DB.add(blob, `${nombre} (editada)`);
       closeEditor();
       setStatus("Copia editada guardada en la galería.");
       renderGallery();
@@ -310,10 +401,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   overlay.querySelector("#edDelete").addEventListener("click", async () => {
-    if (!confirm("¿Eliminar esta foto de la galería?")) return;
-    await deleteFoto(activeFoto.id);
+    if (!activeFoto || !confirm("¿Eliminar esta foto de la galería?")) return;
+    await DB.remove(activeFoto.id);
     closeEditor();
     renderGallery();
+  });
+
+  /* ---------- Actualizar al volver desde la AR ---------- */
+  window.addEventListener("pageshow", e => { if (e.persisted) renderGallery(); });
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) renderGallery();
   });
 
   renderGallery();
