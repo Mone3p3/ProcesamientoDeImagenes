@@ -1,21 +1,21 @@
 const container = document.querySelector('#targets-container');
 
 const modelos = [
-    '#modelo',
-    '#B_Cardinals',
-    '#modelo',
-    '#zelda',
-    '#modelo',
-    '#zelda',
-    '#modelo',
-    '#zelda',
-    '#modelo',
-    '#zelda',
-    '#modelo',
-    '#zelda',
-    '#modelo',
-    '#zelda',
-    '#modelo'
+    '#Cubs',
+    '#Cin',
+    '#Brewers',
+    '#Pirates',
+    '#Cardinals',
+    '#Braves',
+    '#Miami',
+    '#Mets',
+    '#Phillies',
+    '#Nationals',
+    '#Dodgers',
+    '#Diamond',
+    '#Rockies',
+    '#Padres',
+    '#Giants'
 ];
 
 modelos.forEach((modelo, index) => {

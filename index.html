@@ -7,20 +7,16 @@
 <meta name="description" content="Conoce a los equipos, estadios y la historia de la Liga Nacional de Béisbol.">
 <meta name="theme-color" content="#0a0a0a">
 
-<!-- Tipografías -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Bootstrap 5 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
 
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/galeria.css">
 </head>
 <body>
-
-<!--- HEADER ------------------------------------------------------>
 
 <header class="site-header" id="siteHeader">
   <a href="#inicio" class="brand" aria-label="Tocar Base — Inicio">
@@ -30,8 +26,6 @@
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
   </button>
 </header>
-
-<!--- MENÚ -------------------------------------------------------->
 
 <div class="offcanvas offcanvas-end menu-panel" tabindex="-1" id="menuPanel" aria-labelledby="menuPanelLabel">
   <div class="offcanvas-header">
@@ -53,12 +47,11 @@
 
 <main>
 
-  <!--- INICIO ------------------------------------------->
   <section id="inicio" aria-label="Inicio">
     <div class="hero">
       <div class="hero bg-black">
         <div class="position-relative overflow-hidden w-100">
-          <img class="hero-img" src="Images/Bateador_1.jpg" alt="Inicio Imagen" class="d-block">
+          <img class="hero-img" src="Images/Bateador_1.jpg" alt="Inicio Imagen">
         </div>
         <div class="mask position-absolute bottom-0 start-0 w-100"></div>
       </div>
@@ -70,7 +63,6 @@
     </div>
   </section>
 
-  <!--- EQUIPOS ---------------------------------------------------------------------->
   <section id="equipos" class="section" aria-label="Equipos">
     <div class="section-head">
       <h2>Equipos</h2>
@@ -78,8 +70,6 @@
     </div>
     <p class="section-sub">Da click en un escudo para conocer más sobre cada equipo.</p>
 
-    <!-- Filtro por zona: reutiliza las clases .filter-row / .chip que ya
-         usa el editor de la galería, para mantener el mismo estilo de píldora. -->
     <div class="filter-row zona-filters" role="group" aria-label="Filtrar equipos por zona">
       <button class="chip is-active" data-zona="todos">Todos</button>
       <button class="chip" data-zona="central">Central</button>
@@ -95,7 +85,6 @@
   </section>
   
 
-  <!--- HISTORIA ------------------------------------------------------------------------->
   <section id="historia" class="section" aria-label="Historia de la liga">
 
     <div class="section-head">      
@@ -109,13 +98,21 @@
     <div class="about-text">
       <h2>Liga Nacional de Béisbol</h2>
 
-      <p>La Liga Nacional es la liga más antigua del béisbol profesional que sigue activa. Nació en 1876, cuando ocho clubes de ciudades como Chicago, Boston, Filadelfia y San Luis se unieron para organizar un campeonato con reglas claras. De aquella primera temporada sobreviven los Cubs de Chicago y los Braves, una franquicia con raíces en Boston que hoy juega en Atlanta.</p>
-      <p>En 1947, Jackie Robinson rompió la barrera racial con los Dodgers de Brooklyn, uno de los momentos más importantes de la historia del deporte. Poco después, en 1958, Dodgers y Giants dejaron Nueva York para mudarse a California, y en 1962 nacieron los Mets.</p>
-      <p>Más tarde llegaron equipos como los Padres, los Rockies, los Marlins y los Diamondbacks; los Brewers se pasaron desde la Liga Americana en 1998 y los Expos de Montreal se mudaron a Washington en 2005 para convertirse en los Nationals. Con la salida de los Astros a la Americana en 2013, la liga quedó en 15 equipos repartidos en tres divisiones: Este, Central y Oeste, tal como puedes ver en la sección de Equipos. Desde 2022, además, el bateador designado se usa en las dos ligas.</p>
+      <p>La Liga Nacional es la liga más antigua del béisbol profesional que sigue activa. 
+        Nació en 1876, cuando ocho clubes de ciudades como Chicago, Boston, Filadelfia y San Luis 
+        se unieron para organizar un campeonato con reglas claras. De aquella primera temporada sobreviven los Cubs de Chicago 
+        y los Braves, una franquicia con raíces en Boston que hoy juega en Atlanta.</p>
+      <p>En 1947, Jackie Robinson rompió la barrera racial con los Dodgers de Brooklyn, 
+        uno de los momentos más importantes de la historia del deporte. Poco después, 
+        en 1958, Dodgers y Giants dejaron Nueva York para mudarse a California, y en 1962 nacieron los Mets.</p>
+      <p>Más tarde llegaron equipos como los Padres, los Rockies, los Marlins y los Diamondbacks; 
+        los Brewers se pasaron desde la Liga Americana en 1998 y los Expos de Montreal se mudaron a Washington en 2005 
+        para convertirse en los Nationals. Con la salida de los Astros a la Americana en 2013, 
+        la liga quedó en 15 equipos repartidos en tres divisiones: Este, Central y Oeste, 
+        tal como puedes ver en la sección de Equipos. Desde 2022, además, el bateador designado se usa en las dos ligas.</p>
     </div>
   </section>
 
-  <!--- ESTADIOS ------------------------------------------------------------------------------->
   <section id="estadios" class="section" aria-label="Estadios">
     <div class="section-head">
       <h2>Estadios</h2>
@@ -129,8 +126,6 @@
  
     </div>
   </section>
-
-  <!--- REALIDAD AUMENTADA -------------------------------------------------------------------------->
 
   <section id="ar" class="section" aria-label="Realidad Aumentada">
     <div class="section-head">
@@ -147,15 +142,12 @@
       <img src="Images/Bisonte.jpg" alt="AR Foto">
     </div>
 
-
     <div class="ar-cta">
       <a href="ar-modelo.html" class="btn-solid" id="btnEscanear">Escanear</a>
     </div>
   </section>
 
-
   
-  <!--- TRIVIA ------------------------------------------------------------------------------------->
 
   <section id="trivia" class="section" aria-label="Trivia">
     <div class="section-head">
@@ -172,13 +164,11 @@
       <img src="Images/Pitcher_2.jpg" alt="Trivia Foto">
     </div>
 
-
     <div class="ar-cta">
       <a href="trivia-jugar.html" class="btn-solid">Empezar</a>
     </div>
   </section>
 
-  <!--- GALERÍA ------------------------------------------------------------------------->
 <section id="galeria" class="section" aria-label="Galería">
   <div class="section-head reverse">
     <h2>Galería</h2>
@@ -195,7 +185,6 @@
   <p class="gallery-empty" id="galleryEmpty" hidden>Aún no hay fotos. ¡Toma la primera en la sección de Realidad Aumentada!</p>
   </section>
  
-  <!--- JUEGO ------------------------------------------------------------------------------------------>
   <section id="juego" class="section" aria-label="Juego">
     <div class="section-head reverse">
       <div class="rule"></div>
@@ -218,8 +207,6 @@
 
 </main>
 
-<!--- FOOTER ---------------------------------------------------------------------------------------------->
-
 <footer class="site-footer">
   <div class="brand">
     Tocar Base
@@ -228,9 +215,6 @@
   <p>tocarbase_help@gmail.com</p>
   <p>2026 Tocar Base.</p>
 </footer>
-
-
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 <script src="js/data.js"></script>
